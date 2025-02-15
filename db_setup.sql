@@ -10,7 +10,7 @@ CREATE TABLE USR_DT (
     phone INT,                                  -- Phone number of the person
     email VARCHAR(30),                          -- Mail of the person
     birthdate DATE,                             -- Birthdate of the person
-    adresse VARCHAR(50),                        -- Address of the person
+    address VARCHAR(50),                        -- Address of the person
     lidata INT,                                 -- UID of the password entry
     FOREIGN KEY (lidata) REFERENCES LI_DT(id)   --
 );
