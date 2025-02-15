@@ -40,3 +40,34 @@ header nav
 {
     box-shadow: 0 0 0 0.1rem;
 }
+
+#success-icon
+{
+  font-size: 128px;
+  color: var(--bs-teal);
+  display: inline-block;
+}
+
+#timeout-bar
+{
+  -webkit-animation: 5s linear 0s fill-in;
+  animation: 5s linear 0s fill-in;
+}
+
+@-webkit-keyframes fill-in {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes fill-in {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
