@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="fr" data-bs-theme="dark">
+<html lang="fr">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>WebCal - Accueil</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/icons/favicon-64.svg" type="image/svg+xml">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,10 +19,20 @@
     <link rel="stylesheet" href="styles/global.css">
   </head>
   <body page-name="index">
-    <include href="templates/header.html"></include>
+    <include href="templates/header.php"></include>
     <main class="pt-5 min-vh-100">
+      <div class="container mt-5 pt-5">
+        <div class="row mb-2">
+          <img src="assets/icons/favicon-256.svg" width="256" height="256" class="col-12 col-sm-6 d-inline-block align-center" alt="">
+          <h2 class="col-12 col-sm-6 align-center text-center align-content-center pt-5">Bienvenue sur WebCal !</h2>
+        </div>
+        <div class="d-flex flex-column flex-sm-row justify-content-center mt-5">
+          <a type="button" class="btn btn-primary m-2" href="connect.php">Se connecter</a>
+          <a type="button" class="btn btn-secondary m-2" href="register.php">Créer un compte</a>
+        </div>
+      </div>
     </main>
-    <include href="templates/footer.html"></include>
+    <include href="templates/footer.php"></include>
     <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
