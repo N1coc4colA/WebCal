@@ -20,7 +20,7 @@
   </head>
   <body page-name="index">
     <include href="templates/header.php"></include>
-    <main class="pt-5 min-vh-100">
+    <main class="pt-5 min-vh-100 d-flex justify-content-between flex-column">
       <div class="container mt-5 pt-5">
         <div class="row mb-2">
           <img src="assets/icons/favicon-256.svg" width="256" height="256" class="col-12 col-sm-6 d-inline-block align-center" alt="">
