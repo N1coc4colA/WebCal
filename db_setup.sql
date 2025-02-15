@@ -48,3 +48,13 @@ CREATE TABLE INFO_DT (
     msg VARCHAR(200),                           -- Message, note, of the people who made the reservation
     FOREIGN KEY (ar_id) REFERENCES AR_DT(id)    --
 );
+
+-- Create Table PENDING_DT, holding pending registrations
+CREATE TABLE PENDING_DT (
+    id INT PRIMARY KEY,                         -- UID
+    sub_date DATE,                              -- submission date of the mail validation request
+    sub_time TIME,                              -- Start time of the mail validation request
+    validator VARCHAR(20)                       -- Random string used to validate the account (and avoid others validating others' accounts)
+    src INT,                                    -- UID of the person who requested mail validation
+    FOREIGN KEY (src) REFERENCES USR_DT(id)
+);
