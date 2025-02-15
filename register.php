@@ -1,113 +1,108 @@
-<!-- HTML -->
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'inscription</title>
-    <script>
-        function validateForm() {
-            const email = document.getElementById('email');
-            const password = document.getElementById('password');
-            const phone = document.getElementById('phone');
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email.value)) {
-                alert('Veuillez entrer une adresse email valide.');
-                return false;
+        <title>WebCal - Inscription</title>
+        <link rel="icon" href="assets/icons/favicon-64.svg" type="image/svg+xml">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles/global.css">
+    </head>
+    <body page-name="registration">
+        <include href="templates/header.php"></include>
+        <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
+            <div class="card mt-5">
+              <div class="card-body">
+                <h5 class="card-title">Créer un compte</h5>
+                <form action="process_registration.php" method="POST" onsubmit="return validateForm()">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="lastname">Nom</label>
+                        <input class="form-control" type="text" id="lastname" name="lastname" maxlength="30" minlength="3" pattern="^[A-Za-zÀ-ÿ'\\-\\s]+$" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="firstname">Prénom</label>
+                        <input class="form-control" type="text" id="firstname" name="firstname" maxlength="30" minlength="3" pattern="^[A-Za-zÀ-ÿ'\\-\\s]+$" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="birthdate">Date de naissance</label>
+                        <input class="form-control" type="date" id="birthdate" name="birthdate" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="address">Adresse postale</label>
+                        <input class="form-control" type="text" id="address" name="address" maxlength="50" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="phone">Téléphone</label>
+                        <input class="form-control" type="tel" id="phone" minlength="10" maxlength="10" pattern="^[0-9]{10}$" name="phone" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="email">Mail</label>
+                        <input class="form-control" type="email" id="email" name="email" maxlength="30" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="password">Mot de passe</label>
+                        <input class="form-control" type="password" id="password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" required>
+                        <i class="input-group-text bi bi-eye-slash" id="togglePassword"></i>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="password">Confirmez</label>
+                        <input class="form-control" type="password" id="passwordConf" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" required>
+                        <i class="input-group-text bi bi-eye-slash" id="togglePasswordConf"></i>
+                    </div>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center mt-5">
+                        <a type="button" class="btn btn-secondary m-2" href="index.php">Retour</a>
+                        <button class="btn btn-success m-2" type="submit">S'inscrire</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <include href="templates/footer.php"></include>
+        <script src="js/script.js"></script>
+        <script>
+            function validateForm() {
+                const password = document.getElementById('password');
+                const confirmPassword = document.getElementById('confirm_password');
+
+                if (password.value !== confirmPassword.value) {
+                    alert('Les mots de passe ne correspondent pas.');
+                    return false;
+                }
+
+                return true;
             }
 
-            if (password.value.length < 6) {
-                alert('Le mot de passe doit contenir au moins 6 caractères.');
-                return false;
-            }
+            const passwordToggle = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            passwordToggle.addEventListener('click', () => {
+                // Toggle the type attribute using
+                // getAttribure() method
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // Toggle the eye and bi-eye icon
+                passwordToggle.classList.toggle('bi-eye');
+            });
 
-            const phonePattern = /^[0-9]{10}$/;
-            if (!phonePattern.test(phone.value)) {
-                alert('Veuillez entrer un numéro de téléphone valide (10 chiffres).');
-                return false;
-            }
-
-            return true;
-        }
-    </script>
-</head>
-<body>
-    <form action="process_registration.php" method="POST" onsubmit="return validateForm()">
-        <label for="lastname">Nom :</label>
-        <input type="text" id="lastname" name="lastname" required><br>
-
-        <label for="firstname">Prénom :</label>
-        <input type="text" id="firstname" name="firstname" required><br>
-
-        <label for="birthdate">Date de naissance :</label>
-        <input type="date" id="birthdate" name="birthdate" required><br>
-
-        <label for="address">Adresse postale :</label>
-        <input type="text" id="address" name="address" required><br>
-
-        <label for="phone">Numéro de téléphone :</label>
-        <input type="text" id="phone" name="phone" required><br>
-
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required><br>
-
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required><br>
-
-        <button type="submit">S'inscrire</button>
-    </form>
-</body>
+            const passwordToggleConf = document.querySelector('#togglePasswordConf');
+            const passwordConf = document.querySelector('#passwordConf');
+            passwordToggleConf.addEventListener('click', () => {
+                // Toggle the type attribute using
+                // getAttribure() method
+                const type = passwordConf.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordConf.setAttribute('type', type);
+                // Toggle the eye and bi-eye icon
+                passwordToggleConf.classList.toggle('bi-eye');
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
 </html>
-
-<!-- PHP (process_registration.php) -->
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $lastname = htmlspecialchars(trim($_POST['lastname']));
-    $firstname = htmlspecialchars(trim($_POST['firstname']));
-    $birthdate = htmlspecialchars(trim($_POST['birthdate']));
-    $address = htmlspecialchars(trim($_POST['address']));
-    $phone = htmlspecialchars(trim($_POST['phone']));
-    $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
-    $password = htmlspecialchars(trim($_POST['password']));
-
-    if (!$email) {
-        die('Adresse email invalide.');
-    }
-
-    if (strlen($password) < 6) {
-        die('Le mot de passe doit contenir au moins 6 caractères.');
-    }
-
-    if (!preg_match('/^[0-9]{10}$/', $phone)) {
-        die('Numéro de téléphone invalide.');
-    }
-
-    // Vérification de l'unicité de l'email
-    $dsn = 'mysql:host=localhost;dbname=inscription_db;charset=utf8';
-    $username = 'root';
-    $password_db = '';
-
-    try {
-        $pdo = new PDO($dsn, $username, $password_db);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $stmt = $pdo->prepare('SELECT COUNT(*) FROM users WHERE email = ?');
-        $stmt->execute([$email]);
-        $emailExists = $stmt->fetchColumn();
-
-        if ($emailExists) {
-            die('Cet email est déjà utilisé.');
-        }
-
-        // Insertion dans la base de données
-        $stmt = $pdo->prepare('INSERT INTO users (lastname, firstname, birthdate, address, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)');
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt->execute([$lastname, $firstname, $birthdate, $address, $phone, $email, $hashedPassword]);
-
-        echo 'Inscription réussie !';
-    } catch (PDOException $e) {
-        die('Erreur : ' . $e->getMessage());
-    }
-}
-?>
