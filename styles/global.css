@@ -1,0 +1,42 @@
+:root
+{
+    font-family: "Kanit", serif;
+}
+
+header nav
+{
+    background-color: var(--bs-body-bg);
+    --bs-body-bg-rgb: rgb(54, 69, 85);
+    --bs-body-bg: rgb(54, 69, 85);
+}
+
+.navbar
+{
+    --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+}
+
+.navbar-nav .nav-link
+{
+    color: white;
+    margin: 3px;
+    padding: 3px;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show
+{
+    background-color: rgb(220, 53, 69);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.navbar-toggler
+{
+    color: white;
+    padding: 0.1rem;
+}
+
+.navbar-toggler:focus
+{
+    box-shadow: 0 0 0 0.1rem;
+}
