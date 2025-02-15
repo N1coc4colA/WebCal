@@ -48,6 +48,13 @@ header nav
   display: inline-block;
 }
 
+#error-icon
+{
+  font-size: 128px;
+  color: var(--bs-warning);
+  display: inline-block;
+}
+
 #timeout-bar
 {
   -webkit-animation: 5s linear 0s fill-in;
