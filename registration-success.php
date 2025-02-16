@@ -22,21 +22,62 @@
         <include href="templates/header.php"></include>
         <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
             <section class="container align-items-center justify-content-center text-center">
-                <i class="bi bi-calendar-check-fill" id="success-icon"></i>
-                <h1>C'est tout bon !</h1>
-                <p>Vous allez être redirigé vers la page de connection.</p>
-                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar" id="timeout-bar"></div>
-                </div>
+                <?php
+                    // Enable error reporting for debugging
+                    ini_set('display_errors', 1);
+                    ini_set('display_startup_errors', 1);
+                    error_reporting(E_ALL);
+
+                    if (isset($_GET['code'])) {
+                        $verificationCode = htmlspecialchars(trim($_GET['code']));
+    
+                        // Database credentials
+                        $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
+                        $username = 'webcal-user';
+                        $password_db = 'webcal-pw';
+
+                        try {
+                            $pdo = new PDO($dsn, $username, $password_db);
+                            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+                            // Check if the verification code exists in the PENDING_DT table
+                            $stmt = $pdo->prepare("SELECT email FROM PENDING_DT WHERE validator = ?");
+                            $stmt->execute([$verificationCode]);
+                            $email = $stmt->fetchColumn();
+    
+                            if (!(!$email)) {
+                                // Mark the user as verified in the USR_DT table
+                                $stmt = $pdo->prepare("UPDATE USR_DT SET sub = true WHERE email = ?");
+                                $stmt->execute([$email]);
+        
+                                // Remove the verification code from the PENDING_DT table
+                                $stmt = $pdo->prepare("DELETE FROM PENDING_DT WHERE email = ?");
+                                $stmt->execute([$email]);
+        
+                                echo (file_get_contents("templates/register-success.html"));
+                            } else {
+                                echo (file_get_contents("templates/register-invalid-mail-error.html"));
+                            }
+                        } catch (PDOException $e) {
+                            echo (file_get_contents("templates/register-error.html"));
+                            echo ("Erreur : " . $e->getMessage());
+                        }
+                    } else {
+                        echo (file_get_contents("templates/register-invalid-link-error.html"));
+                    }
+                ?>
             </section>
         </main>
         <include href="templates/footer.php"></include>
         <script src="js/script.js"></script>
         <script>
             // Redirect function
-            setTimeout(() => {
-                window.location.href = "connect.php"; // Replace with your desired URL
-            }, 5000);
+            let bar = document.getElementById("mailValidatedBar");
+            if (bar != null) {
+                setTimeout(() => {
+                    window.location.href = "connect.php"; // Replace with your desired URL
+                }, 5000);
+            }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
