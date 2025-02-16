@@ -1,3 +1,9 @@
+<?php
+  if (isset($_SESSION["id"]) && $_SESSION["id"] == true) {
+    header("Location: calendar.php");
+    exit;
+  }
+?>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -25,7 +31,12 @@
                 <div class="card mt-5">
                     <div class="card-body">
                         <h5 class="card-title">Se connecter</h5>
-                        <form action="process_registration.php" method="POST" onsubmit="return validateForm()">
+                        <?php
+                            if (isset($_GET['error'])) {
+                                echo "<p>Échec de l'authentification.</p>";
+                            }
+                        ?>
+                        <form action="authenticate.php" method="POST">
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="email">Mail</label>
                                 <input class="form-control" type="email" id="email" name="email" maxlength="30" required>
