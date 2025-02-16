@@ -11,17 +11,9 @@ CREATE TABLE USR_DT (
     email VARCHAR(30),                          -- Mail of the person
     birthdate DATE,                             -- Birthdate of the person
     address VARCHAR(50),                        -- Address of the person
-    lidata INT,                                 -- UID of the password entry
-    FOREIGN KEY (lidata) REFERENCES LI_DT(id)   --
-);
-
--- Create Table LI_DT, LogIn database, with infos.
-CREATE TABLE LI_DT (
-    id INT PRIMARY KEY,                         -- UID
     salt CHAR(8),                               -- Salt for the password
-    pwh CHAR(60),                               -- Hashed password
+    pwh CHAR(255),                              -- Hashed password
     sub BOOLEAN DEFAULT FALSE,                  -- Submitted, means that the user validated his mail.
-    udid INT,                                   -- UID of the user who owns this PW entry.
     FOREIGN KEY (udid) REFERENCES USR_DT(id)    --
 );
 
