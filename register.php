@@ -51,12 +51,12 @@
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="password">Mot de passe</label>
-                        <input class="form-control" type="password" id="password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" required>
+                        <input class="form-control" type="password" id="password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" maxlength="30" required>
                         <i class="input-group-text bi bi-eye-slash" id="togglePassword"></i>
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="password">Confirmez</label>
-                        <input class="form-control" type="password" id="passwordConf" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" required>
+                        <input class="form-control" type="password" id="passwordConf" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" maxlength="30" required>
                         <i class="input-group-text bi bi-eye-slash" id="togglePasswordConf"></i>
                     </div>
                     <div class="d-flex flex-column flex-sm-row justify-content-center mt-5">
