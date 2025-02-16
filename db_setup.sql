@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS USR_DT (
     email VARCHAR(30),                          -- Mail of the person
     birthdate DATE,                             -- Birthdate of the person
     address VARCHAR(50),                        -- Address of the person
-    salt CHAR(8),                               -- Salt for the password
     pwh CHAR(255),                              -- Hashed password
     sub BOOLEAN DEFAULT FALSE                   -- Submitted, means that the user validated his mail.
 );
