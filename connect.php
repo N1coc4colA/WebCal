@@ -36,8 +36,14 @@
                                 <i class="input-group-text bi bi-eye-slash" id="togglePassword"></i>
                             </div>
                             <div class="d-flex flex-column flex-sm-row justify-content-center mt-5">
-                                <a type="button" class="btn btn-secondary m-2" href="index.php">Retour</a>
-                                <button class="btn btn-success m-2" type="submit">Se connecter</button>
+                                <a type="button" class="btn btn-secondary m-2" href="index.php">
+                                    <i class="bi bi-arrow-return-left"></i>
+                                    Retour
+                                </a>
+                                <button class="btn btn-success m-2" type="submit">
+                                    Se connecter
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
                             </div>
                         </form>
                     </div>

@@ -27,8 +27,14 @@
           <h2 class="col-12 col-sm-6 align-center text-center align-content-center pt-5">Bienvenue sur WebCal !</h2>
         </div>
         <div class="d-flex flex-column flex-sm-row justify-content-center mt-5">
-          <a type="button" class="btn btn-primary m-2" href="connect.php">Se connecter</a>
-          <a type="button" class="btn btn-secondary m-2" href="register.php">Créer un compte</a>
+          <a type="button" class="btn btn-primary m-2" href="connect.php">
+            <i class="bi bi-person-bounding-box"></i>
+            Se connecter
+          </a>
+          <a type="button" class="btn btn-secondary m-2" href="register.php">
+            <i class="bi bi-person-add"></i>
+            Créer un compte
+          </a>
         </div>
       </div>
     </main>
