@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS PENDING_DT (
     id INT PRIMARY KEY AUTO_INCREMENT,          -- UID
     sub_date DATE,                              -- submission date of the mail validation request
     sub_time TIME,                              -- Start time of the mail validation request
-    validator VARCHAR(20),                      -- Random string used to validate the account (and avoid others validating others' accounts)
+    validator VARCHAR(30),                      -- Random string used to validate the account (and avoid others validating others' accounts)
     src INT,                                    -- UID of the person who requested mail validation
     FOREIGN KEY (src) REFERENCES USR_DT(id)
 );
