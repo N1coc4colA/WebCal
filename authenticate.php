@@ -3,6 +3,11 @@
     <?php
         session_start();
 
+        if (isset($_SESSION["id"]) && !is_null($_SESSION["id"])) {
+          header("location: calendar.php");
+          exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = mb_strimwidth(filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL), 0, 30, "");
             $password = mb_strimwidth(htmlspecialchars($_POST['password']), 0, 30, "");
