@@ -2,7 +2,7 @@ USE webcal;
 
 -- Create Table USR_DT
 CREATE TABLE IF NOT EXISTS USR_DT (
-    id INT PRIMARY KEY,                         -- UID
+    id INT PRIMARY KEY AUTO_INCREMENT,          -- UID
     name VARCHAR(30),                           -- Name (family) of the person
     surname VARCHAR(30),                        -- Surname (usual name) of the person
     phone INT,                                  -- Phone number of the person
@@ -16,14 +16,14 @@ CREATE TABLE IF NOT EXISTS USR_DT (
 
 -- Create Table INFO_DT, holding info about a rendez-vous
 CREATE TABLE IF NOT EXISTS INFO_DT (
-    id INT PRIMARY KEY,                         -- UID
+    id INT PRIMARY KEY AUTO_INCREMENT,          -- UID
     ar_id INT,                                  -- UID of the source range
     msg VARCHAR(200)                            -- Message, note, of the people who made the reservation
 );
 
 -- Create Table AR_DT, Available Ranges for a rendez-vous
 CREATE TABLE IF NOT EXISTS AR_DT (
-    id INT PRIMARY KEY,                             -- UID
+    id INT PRIMARY KEY AUTO_INCREMENT,              -- UID
     src INT,                                        -- UID of the people who owns the range
     dst INT,                                        -- UID of the people who made a reservation
     beg_date DATE,                                  -- Start date of the range (includes)
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS AR_DT (
 
 -- Create Table PENDING_DT, holding pending registrations
 CREATE TABLE IF NOT EXISTS PENDING_DT (
-    id INT PRIMARY KEY,                         -- UID
+    id INT PRIMARY KEY AUTO_INCREMENT,          -- UID
     sub_date DATE,                              -- submission date of the mail validation request
     sub_time TIME,                              -- Start time of the mail validation request
     validator VARCHAR(20),                      -- Random string used to validate the account (and avoid others validating others' accounts)
