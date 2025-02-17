@@ -1,0 +1,192 @@
+.calendar-header
+{
+    height: 5vh;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.calendar-header-ctr {
+    width: 100%;
+}
+
+.calendar-header-ctr .calendar-header
+{
+    border: 1px #FFF solid;
+    background-color: #e8e8e8db;
+    margin-bottom: 1px;
+}
+
+.calendar-header-ctr .calendar-header:last-child
+{
+    border-radius: 0 7px 0 0;
+}
+
+.calendar-header-ctr .calendar-header:first-child
+{
+    border-radius: 7px 0 0 0;
+}
+
+.calendar-body
+{
+    min-height: 70vh;
+    max-height: 70vh;
+    overflow: auto;
+}
+
+.calendar-body .row
+{
+    max-width: calc(calc(100%) - 5px);
+}
+
+.calendar-body div
+{
+    border: 0 lightgray solid;
+    border-bottom-width: 1px;
+}
+
+.calendar-body div:last-child
+{
+    border-bottom-width: 0;
+}
+
+.calendar-body div .day-entry
+{
+    border: 0 lightgray solid;
+    border-left-width: 1px;
+}
+
+.calendar-body div .day-entry:first-child
+{
+    border-left-width: 0;
+}
+
+.day-entry
+{
+    aspect-ratio: 1;
+    padding: 5px;
+}
+
+.split7
+{
+    width: calc(calc(100%)/7);
+}
+
+.striped-day
+{
+    background: repeating-linear-gradient(
+      -45deg, 
+      #e8e8e85e 0, /* Gray with transparency */
+      #e8e8e85e 20px, /* End of gray stripe */
+      transparent 10px, /* Transparent starts */
+      transparent 30px /* Transparent stripe */
+    );
+}
+
+.unused-day
+{
+    background-color: #9b9b9b2b;
+}
+
+.selected-day .day-tickets
+{
+    margin-bottom: calc(calc(1rem) - calc(8px));
+}
+
+.selected-day
+{
+    background-color: #69c0ff24;
+    border-bottom: 8px rgb(54, 69, 85) solid !important;
+}
+
+.current-day .day-tickets
+{
+    margin-bottom: calc(calc(1rem) - calc(8px));
+}
+
+.current-day
+{
+    border-bottom: 8px rgb(220, 53, 69) solid !important;
+}
+
+.day-tickets
+{
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    background-color: red;
+    color: #fff;
+    border-radius: 1000000000px;
+    font-size: 14pt;
+}
+
+.day-text
+{
+    font-weight: bold;
+    font-size: 30pt;
+    color: black;
+}
+
+.upcoming-header
+{
+    height: calc(calc(5vh) + 37px);
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.upcoming-body
+{
+    min-height: 70vh;
+    max-height: 70vh;
+    overflow: auto;
+}
+
+.upcoming-entry
+{
+    border-radius: 7px;
+    border: 1px lightgray solid;
+    padding: 5px;
+    height: 100px;
+    width: 100%;
+    background-color: #e8e8e83b;
+}
+
+.upcoming-sep
+{
+    width: 1px;
+    margin: 5px 15px 0 0;
+    background-color: lightgray;
+}
+
+.rdv-date
+{
+    font-weight: bold;
+    font-size: 30pt;
+    color: black;
+}
+
+.rdv-time
+{
+}
+
+.rdv-title
+{
+    border-bottom: 0;
+}
+
+.rdv-name
+{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.mrg-l-5
+{
+    margin-right: 5px;
+}
+
+#monthYear
+{
+    margin: 0;
+}
