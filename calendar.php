@@ -34,7 +34,7 @@
         <div class="row">
           <div class="col-12 col-lg-8 mb-3">
             <div>
-              <div class="calendar-header d-flex justify-content-between align-items-center mb-3">
+              <div class="calendar-header-bar d-flex justify-content-between align-items-center mb-3">
                 <button id="prevMonth" class="btn btn-primary">
                   <i class="bi bi-chevron-left"></i>
                 </button>
