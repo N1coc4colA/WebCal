@@ -55,8 +55,8 @@
                         <i class="input-group-text bi bi-eye-slash" id="togglePassword"></i>
                     </div>
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="password">Confirmez</label>
-                        <input class="form-control" type="password" id="passwordConf" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
+                        <label class="input-group-text" for="passwordConf">Confirmez</label>
+                        <input class="form-control" type="password" id="passwordConf" name="passwordConf" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
                         <i class="input-group-text bi bi-eye-slash" id="togglePasswordConf"></i>
                     </div>
                     <div class="d-flex flex-column flex-sm-row justify-content-center mt-5">
