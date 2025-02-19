@@ -1,0 +1,29 @@
+.nav-item .nav-link
+{
+    color: black;
+}
+
+.sidebar .nav .nav-item .nav-link
+{
+    background-color: var(--bs-dark-bg-subtle);
+    border: 0px white solid;
+    border-right-width: 2px;
+    border-radius: 0;
+}
+
+.sidebar .nav .nav-item:last-child .nav-link
+{
+    border-radius: 0 var(--bs-nav-pills-border-radius) var(--bs-nav-pills-border-radius) 0;
+    border-right-width: 0;
+}
+
+.sidebar .nav .nav-item:first-child .nav-link
+{
+    border-radius: var(--bs-nav-pills-border-radius) 0 0 var(--bs-nav-pills-border-radius);
+}
+
+.sidebar .nav .nav-item .nav-link.active
+{
+    background-color: rgb(220, 53, 69);
+    font-weight: bold;
+}
