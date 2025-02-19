@@ -94,7 +94,7 @@
             </form>
           </div>
           <div class="container col tab-pane fade show" id="pw" role="tabpanel" aria-labelledby="pw-tab">
-            <form action="chage-password.php" method="POST" class="container">
+            <form action="change-password.php" method="POST" class="container">
               <h1 class="mt-3">Changer de mot de passe</h1>
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="password">Ancien mot de passe</label>
