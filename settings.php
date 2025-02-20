@@ -5,6 +5,23 @@
     header("location: connect.php");
     exit;
   }
+
+  $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
+  $username = 'webcal-user';
+  $password_db = 'webcal-pw';
+
+  try {
+    $pdo = new PDO($dsn, $username, $password_db);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
+    $stmt = $pdo->prepare("SELECT name, surname, birthdate, address, phone, email FROM USR_DT WHERE (id=?)");
+    $stmt->execute([$_SESSION["id"]]);
+  
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    header("Location: error.php?error=sql-error.html");
+    exit;
+  }
 ?>
 <!doctype html>
 <html lang="fr">
@@ -61,29 +78,35 @@
                 <div class="col-12 col-md-6">
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="lastname">Nom</label>
-                    <input class="form-control" type="text" id="lastname" name="lastname" maxlength="30" minlength="3" pattern="^[A-Za-zÀ-ÿ'\\-\\s]+$" required>
+                    <input class="form-control" type="text" id="lastname" name="lastname" maxlength="30" minlength="3" pattern="^[A-Za-zÀ-ÿ'\\-\\s]+$" required
+                    value="<?php echo $row["name"];?>">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="firstname">Prénom</label>
-                    <input class="form-control" type="text" id="firstname" name="firstname" maxlength="30" minlength="3" pattern="^[A-Za-zÀ-ÿ'\\-\\s]+$" required>
+                    <input class="form-control" type="text" id="firstname" name="firstname" maxlength="30" minlength="3" pattern="^[A-Za-zÀ-ÿ'\\-\\s]+$" required
+                    value="<?php echo $row["surname"];?>">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="birthdate">Date de naissance</label>
-                    <input class="form-control" type="date" id="birthdate" name="birthdate" required>
+                    <input class="form-control" type="date" id="birthdate" name="birthdate" required
+                    value="<?php echo $row["birthdate"];?>">
                   </div>
                 </div>
                 <div class="col-12 col-md-6">
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="address">Adresse postale</label>
-                    <input class="form-control" type="text" id="address" name="address" maxlength="50" required>
+                    <input class="form-control" type="text" id="address" name="address" maxlength="50" required
+                    value="<?php echo $row["address"];?>">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="phone">Téléphone</label>
-                    <input class="form-control" type="tel" id="phone" minlength="10" maxlength="10" pattern="^[0-9]{10}$" name="phone" required>
+                    <input class="form-control" type="tel" id="phone" minlength="10" maxlength="10" pattern="^[0-9]{10}$" name="phone" required
+                    value="<?php echo str_pad((string)$row["phone"], 10, "0", STR_PAD_LEFT);?>">
                   </div>
                   <div class="input-group mb-3">
-                      <label class="input-group-text" for="email">Mail</label>
-                      <input class="form-control" type="email" id="email" name="email" maxlength="30" required>
+                    <label class="input-group-text" for="email">Mail</label>
+                    <input class="form-control" type="email" id="email" name="email" maxlength="30" required
+                    value="<?php echo $row["email"];?>">
                   </div>
                 </div>
               </div>
