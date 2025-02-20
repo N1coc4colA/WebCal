@@ -119,25 +119,25 @@
           <div class="container col tab-pane fade show" id="pw" role="tabpanel" aria-labelledby="pw-tab">
             <form action="change-password.php" method="POST" class="container">
               <h1 class="mt-3">Changer de mot de passe</h1>
-                <div class="input-group mb-3">
-                  <label class="input-group-text" for="password">Ancien mot de passe</label>
-                  <input class="form-control" type="password" id="password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
-                  <i class="input-group-text bi bi-eye-slash" id="togglePassword"></i>
-                </div>
-                <div class="input-group mb-3">
-                  <label class="input-group-text" for="nPassword">Nouveau mot de passe</label>
-                  <input class="form-control" type="password" id="nPassword" name="nPassword" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
-                  <i class="input-group-text bi bi-eye-slash" id="toggleNPassword"></i>
-                </div>
-                  <div class="input-group mb-3">
-                  <label class="input-group-text" for="nPasswordConf">Confirmez</label>
-                  <input class="form-control" type="password" id=nPasswordConf" name="nPasswordConf" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
-                  <i class="input-group-text bi bi-eye-slash" id="toggleNPasswordConf"></i>
-                </div>
-                <button class="btn btn-warning" type="submit">
-                  <i class="bi bi-shield-lock-fill"></i>
-                  Changer
-                </button>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="password">Ancien mot de passe</label>
+                <input class="form-control" type="password" id="password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
+                <i class="input-group-text bi bi-eye-slash" id="togglePassword"></i>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="nPassword">Nouveau mot de passe</label>
+                <input class="form-control" type="password" id="nPassword" name="nPassword" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
+                <i class="input-group-text bi bi-eye-slash" id="toggleNPassword"></i>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="nPasswordConf">Confirmez</label>
+                <input class="form-control" type="password" id="nPasswordConf" name="nPasswordConf" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
+                <i class="input-group-text bi bi-eye-slash" id="toggleNPasswordConf"></i>
+              </div>
+              <button class="btn btn-warning" type="submit">
+                <i class="bi bi-shield-lock-fill"></i>
+                Changer
+              </button>
             </form>
           </div>
           <div class="container col justify-content-center tab-pane fade show" id="suppr" role="tabpanel" aria-labelledby="suppr-tab">
@@ -166,7 +166,7 @@
     </main>
     <include href="templates/footer.php"></include>
     <script src="js/script.js"></script>
-        <script>
+    <script>
             function validateForm() {
                 const nPassword = document.getElementById('nPassword');
                 const confirmNPassword = document.getElementById('nPasswordConf');
@@ -179,8 +179,19 @@
                 return true;
             }
 
-            const passwordToggle = document.querySelector('#togglePassword');
-            const password = document.querySelector('#password');
+            const nPasswordToggleConf = document.getElementById('toggleNPasswordConf');
+            const nPasswordConf = document.getElementById('nPasswordConf');
+            nPasswordToggleConf.addEventListener('click', () => {
+                // Toggle the type attribute using
+                // getAttribure() method
+                const type = nPasswordConf.getAttribute('type') === 'password' ? 'text' : 'password';
+                nPasswordConf.setAttribute('type', type);
+                // Toggle the eye and bi-eye icon
+                nPasswordToggleConf.classList.toggle('bi-eye');
+            });
+
+            const passwordToggle = document.getElementById('togglePassword');
+            const password = document.getElementById('password');
             passwordToggle.addEventListener('click', () => {
                 // Toggle the type attribute using
                 // getAttribure() method
@@ -190,8 +201,8 @@
                 passwordToggle.classList.toggle('bi-eye');
             });
 
-            const nPasswordToggle = document.querySelector('#toggleNPassword');
-            const nPassword = document.querySelector('#nPassword');
+            const nPasswordToggle = document.getElementById('toggleNPassword');
+            const nPassword = document.getElementById('nPassword');
             nPasswordToggle.addEventListener('click', () => {
                 // Toggle the type attribute using
                 // getAttribure() method
@@ -200,18 +211,7 @@
                 // Toggle the eye and bi-eye icon
                 nPasswordToggle.classList.toggle('bi-eye');
             });
-
-            const nPasswordToggleConf = document.querySelector('#toggleNPasswordConf');
-            const nPasswordConf = document.querySelector('#nPasswordConf');
-            nPasswordToggleConf.addEventListener('click', () => {
-                // Toggle the type attribute using
-                // getAttribure() method
-                const type = nPasswordConf.getAttribute('type') === 'password' ? 'text' : 'password';
-                nPasswordConf.setAttribute('type', type);
-                // Toggle the eye and bi-eye icon
-                nPasswordToggleConf.classList.toggle('bi-eye');
-            });
-        </script>
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
