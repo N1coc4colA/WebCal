@@ -51,7 +51,7 @@
         <section class="sidebar p-1 pt-3">
           <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
-              <button class="nav-link active" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button" role="tab" aria-controls="profile" aria-selected="false">
+              <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button" role="tab" aria-controls="profile" aria-selected="false">
                 <i class="bi bi-pencil-fill"></i>
                 <span class="d-none d-sm-inline">Informations</span>
               </button>
@@ -71,7 +71,7 @@
           </ul>
         </section>
         <section class="tab-content">
-          <div class="container col justify-content-center tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="general-tab">
+          <div class="container col justify-content-center tab-pane fade show" id="edit" role="tabpanel" aria-labelledby="general-tab">
             <form action="update-information.php" method="POST">
               <h1 class="mt-3">Vos informations</h1>
               <div class="row">
@@ -167,6 +167,27 @@
     <include href="templates/footer.php"></include>
     <script src="js/script.js"></script>
     <script>
+            if (window.location.hash) {
+              console.log("-" + window.location.hash + "-");
+
+              if (window.location.hash === "#edit") {
+                document.getElementById("edit-tab").classList.toggle("active");
+                document.getElementById("edit").classList.toggle("active");
+              } else if (window.location.hash === "#pw") {
+                document.getElementById("pw-tab").classList.toggle("active");
+                document.getElementById("pw").classList.toggle("active");
+              } else if (window.location.hash === "#suppr") {
+                document.getElementById("suppr-tab").classList.toggle("active");
+                document.getElementById("suppr").classList.toggle("active");
+              } else {
+                document.getElementById("edit-tab").classList.toggle("active");
+                document.getElementById("edit").classList.toggle("active");
+              }
+            } else {
+                document.getElementById("edit-tab").classList.toggle("active");
+                document.getElementById("edit").classList.toggle("active");
+            }
+
             function validateForm() {
                 const nPassword = document.getElementById('nPassword');
                 const confirmNPassword = document.getElementById('nPasswordConf');
