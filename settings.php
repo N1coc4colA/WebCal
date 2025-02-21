@@ -1,19 +1,9 @@
 <?php
-  session_start();
-
-  if (!isset($_SESSION["id"])  || is_null($_SESSION["id"])) {
-    header("location: connect.php");
-    exit;
-  }
-
-  $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
-  $username = 'webcal-user';
-  $password_db = 'webcal-pw';
+  include "session_utils.php";
 
   try {
-    $pdo = new PDO($dsn, $username, $password_db);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  
+    $pdo = connectDB();
+
     $stmt = $pdo->prepare("SELECT name, surname, birthdate, address, phone, email FROM USR_DT WHERE (id=?)");
     $stmt->execute([$_SESSION["id"]]);
   
@@ -114,6 +104,7 @@
                 <i class="bi bi-person-fill-up"></i>
                 Mettre à jour
               </button>
+              <input name="token" type="hidden" value="<?php $_SESSION['info-upd-token'] = generateToken(); echo $_SESSION['info-upd-token']; ?>">
             </form>
           </div>
           <div class="container col tab-pane fade show" id="pw" role="tabpanel" aria-labelledby="pw-tab">
@@ -138,6 +129,7 @@
                 <i class="bi bi-shield-lock-fill"></i>
                 Changer
               </button>
+              <input name="token" type="hidden" value="<?php $_SESSION['pw-ch-token'] = generateToken(); echo $_SESSION['pw-ch-token']; ?>">
             </form>
           </div>
           <div class="container col justify-content-center tab-pane fade show" id="suppr" role="tabpanel" aria-labelledby="suppr-tab">
@@ -150,6 +142,7 @@
                     <i class="bi bi-box2-fill"></i>
                     Supprimer les données
                 </button>
+                <input name="token" type="hidden" value="<?php $_SESSION['rm-data-token'] = generateToken(); echo $_SESSION['rm-data-token']; ?>">
               </form>
               <form action="remove-information.php?account" method="POST" class="col-12 col-md-6 mb-3">
                 <h3>Supprimer votre compte</h3>
@@ -158,6 +151,7 @@
                   <i class="bi bi-person-fill-dash"></i>
                   Supprimer le compte
                 </button>
+                <input name="token" type="hidden" value="<?php $_SESSION['rm-account-token'] = generateToken(); echo $_SESSION['rm-account-token']; ?>">
               </form>
             </div>
           </div>
