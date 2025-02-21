@@ -9,8 +9,8 @@
   try {
     $pdo = connectDB();
 
-    $password = (string) mb_strimwidth(htmlspecialchars($_POST['password']), 0, 30, "");
-    $nPassword = (string) mb_strimwidth(htmlspecialchars($_POST['nPassword']), 0, 30, "");
+    $password = san_pw($_POST['password']);
+    $nPassword = san_pw($_POST['nPassword']);
     // We don't care about confirmation password. Should be validated user-side only.
 
     $stmt = $pdo->prepare("SELECT pwh FROM USR_DT WHERE id=?");

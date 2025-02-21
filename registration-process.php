@@ -26,18 +26,18 @@
                     include "utils.php";
 
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $name = (string) mb_strimwidth(htmlspecialchars(trim($_POST['lastname'])), 0, 30, "");
-                        $surname = (string) mb_strimwidth(htmlspecialchars(trim($_POST['firstname'])), 0, 30, "");
-                        $birthdate = htmlspecialchars(trim($_POST['birthdate']));
-                        $address = (string) mb_strimwidth(htmlspecialchars(trim($_POST['address'])), 0, 50, "");
-                        $phone = mb_strimwidth(htmlspecialchars(trim($_POST['phone'])), 0, 10, "");
-                        $email = (string) mb_strimwidth(filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL), 0, 30, "");
-                        $password = (string) mb_strimwidth(htmlspecialchars($_POST['password']), 0, 30, "");
+                        $name = san_string($_POST['lastname'], 30);
+                        $surname = san_string($_POST['firstname'], 30);
+                        $birthdate = san_string($_POST['birthdate'], 20);
+                        $address = san_string($_POST['address'], 50);
+                        $phone = san_phone($_POST['phone']);
+                        $email = san_mail($_POST['email']);
+                        $password = san_pw($_POST['password']);
                         // We don't need the password confirmation field at all.
 
-                        if (!(!$email)) {
-                            if (!(!preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/', $password))) {
-                                if (!(!preg_match('/^[0-9]{10}$/', $phone))) {
+                        if (validate_mail($email)) {
+                            if (validate_pw($password)) {
+                                if (validate_phone($phone)) {
                                     // Vérification de l'unicité de l'email
                                     try {
                                         $pdo = connectDB();

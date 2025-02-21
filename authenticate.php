@@ -11,8 +11,13 @@
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = mb_strimwidth(filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL), 0, 30, "");
-            $password = mb_strimwidth(htmlspecialchars($_POST['password']), 0, 30, "");
+            $email = san_mail($_POST['email']);
+            $password = san_pw($_POST['password']);
+
+            if (!validate_pw($password) || !validate_mail($email)) {
+                header("Location: connect.php?error");
+                exit;
+            }
 
             try {
                 $pdo = connectDB();
@@ -22,7 +27,7 @@
                 $stmt->execute([$email]);
                 $emailExists = $stmt->fetchColumn();
 
-                if (!(!$emailExists)) {
+                if ($emailExists) {
                     $stmt = $pdo->prepare("SELECT id, pwh FROM USR_DT WHERE email = ?");
                     $stmt->execute([$email]);
 

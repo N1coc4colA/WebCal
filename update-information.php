@@ -6,15 +6,20 @@
     exit;
   }
 
-  $name = (string) mb_strimwidth(htmlspecialchars(trim($_POST['lastname'])), 0, 30, "");
-  $surname = (string) mb_strimwidth(htmlspecialchars(trim($_POST['firstname'])), 0, 30, "");
-  $birthdate = htmlspecialchars(trim($_POST['birthdate']));
-  $address = (string) mb_strimwidth(htmlspecialchars(trim($_POST['address'])), 0, 50, "");
-  $phone = mb_strimwidth(htmlspecialchars(trim($_POST['phone'])), 0, 10, "");
-  $email = (string) mb_strimwidth(filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL), 0, 30, "");
+  $name = san_string($_POST['lastname'], 30);
+  $surname = san_string($_POST['firstname'], 30);
+  $birthdate = san_string($_POST['birthdate'], 20);
+  $address = san_string($_POST['address'], 50);
+  $phone = san_phone($_POST['phone']);
+  $email = san_mail($_POST['email']);
 
-  if (!preg_match('/^[0-9]{10}$/', $phone)) {
+  if (!validate_phone($phone)) {
     header("Location: settings.php?phone-error");
+    exit;
+  }
+
+  if (!validate_mail($email)) {
+    header("Location: settings.php?mail-error");
     exit;
   }
 
