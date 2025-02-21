@@ -23,6 +23,8 @@
         <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
             <section class="container align-items-center justify-content-center text-center">
                 <?php
+                    include "utils.php";
+
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $name = (string) mb_strimwidth(htmlspecialchars(trim($_POST['lastname'])), 0, 30, "");
                         $surname = (string) mb_strimwidth(htmlspecialchars(trim($_POST['firstname'])), 0, 30, "");
@@ -37,13 +39,8 @@
                             if (!(!preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/', $password))) {
                                 if (!(!preg_match('/^[0-9]{10}$/', $phone))) {
                                     // Vérification de l'unicité de l'email
-                                    $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
-                                    $username = 'webcal-user';
-                                    $password_db = 'webcal-pw';
-
                                     try {
-                                        $pdo = new PDO($dsn, $username, $password_db);
-                                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                        $pdo = connectDB();
 
                                         $stmt = $pdo->prepare("SELECT COUNT(*) FROM USR_DT WHERE email = ?");
                                         $stmt->execute([$email]);

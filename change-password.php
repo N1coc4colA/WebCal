@@ -1,23 +1,13 @@
 <?php
-  session_start();
-
-  if (!isset($_SESSION["id"])  || is_null($_SESSION["id"])) {
-    header("Location: connect.php");
-    exit;
-  }
+  include "session_utils.php";
 
   if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: settings.php?pw-error-meth");
     exit;
   }
 
-  $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
-  $username = 'webcal-user';
-  $password_db = 'webcal-pw';
-
   try {
-    $pdo = new PDO($dsn, $username, $password_db);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = connectDB();
 
     $password = (string) mb_strimwidth(htmlspecialchars($_POST['password']), 0, 30, "");
     $nPassword = (string) mb_strimwidth(htmlspecialchars($_POST['nPassword']), 0, 30, "");

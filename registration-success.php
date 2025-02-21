@@ -23,22 +23,13 @@
         <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
             <section class="container align-items-center justify-content-center text-center">
                 <?php
-                    // Enable error reporting for debugging
-                    ini_set('display_errors', 1);
-                    ini_set('display_startup_errors', 1);
-                    error_reporting(E_ALL);
+                    include "utils.php";
 
                     if (isset($_GET['code'])) {
                         $verificationCode = htmlspecialchars(trim($_GET['code']));
-    
-                        // Database credentials
-                        $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
-                        $username = 'webcal-user';
-                        $password_db = 'webcal-pw';
 
                         try {
-                            $pdo = new PDO($dsn, $username, $password_db);
-                            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $pdo = connectDB();
     
                             // Check if the verification code exists in the PENDING_DT table
                             $stmt = $pdo->prepare("SELECT email FROM PENDING_DT WHERE validator = ?");

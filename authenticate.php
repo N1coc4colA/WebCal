@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
     <?php
+        include "utils.php";
+
         session_start();
 
         if (isset($_SESSION["id"]) && !is_null($_SESSION["id"])) {
@@ -12,14 +14,8 @@
             $email = mb_strimwidth(filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL), 0, 30, "");
             $password = mb_strimwidth(htmlspecialchars($_POST['password']), 0, 30, "");
 
-            // Database credentials
-            $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
-            $username = 'webcal-user';
-            $password_db = 'webcal-pw';
-
             try {
-                $pdo = new PDO($dsn, $username, $password_db);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $pdo = connectDB();
 
                 // [TODO] Check that the user validated mail
                 $stmt = $pdo->prepare("SELECT COUNT(*) FROM USR_DT WHERE email = ?");
