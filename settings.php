@@ -91,7 +91,7 @@
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="phone">Téléphone</label>
                     <input class="form-control" type="tel" id="phone" minlength="10" maxlength="10" pattern="^[0-9]{10}$" name="phone" required
-                    value="<?php echo str_pad((string)$row["phone"], 10, "0", STR_PAD_LEFT);?>">
+                    value="<?php echo str_pad((string)$row["phone"], 10, "0", STR_PAD_LEFT); ?>">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="email">Mail</label>
@@ -104,7 +104,7 @@
                 <i class="bi bi-person-fill-up"></i>
                 Mettre à jour
               </button>
-              <input name="token" type="hidden" value="<?php $_SESSION['info-upd-token'] = generateToken(); echo $_SESSION['info-upd-token']; ?>">
+              <input name="token" type="hidden" value="<?php echo buildToken('info-upd-token'); ?>">
             </form>
           </div>
           <div class="container col tab-pane fade show" id="pw" role="tabpanel" aria-labelledby="pw-tab">
@@ -129,7 +129,7 @@
                 <i class="bi bi-shield-lock-fill"></i>
                 Changer
               </button>
-              <input name="token" type="hidden" value="<?php $_SESSION['pw-ch-token'] = generateToken(); echo $_SESSION['pw-ch-token']; ?>">
+              <input name="token" type="hidden" value="<?php echo buildToken('pw-ch-token'); ?>">
             </form>
           </div>
           <div class="container col justify-content-center tab-pane fade show" id="suppr" role="tabpanel" aria-labelledby="suppr-tab">
@@ -142,7 +142,7 @@
                     <i class="bi bi-box2-fill"></i>
                     Supprimer les données
                 </button>
-                <input name="token" type="hidden" value="<?php $_SESSION['rm-data-token'] = generateToken(); echo $_SESSION['rm-data-token']; ?>">
+                <input name="token" type="hidden" value="<?php echo buildToken('rm-data-token'); ?>">
               </form>
               <form action="remove-information.php?account" method="POST" class="col-12 col-md-6 mb-3">
                 <h3>Supprimer votre compte</h3>
@@ -151,7 +151,7 @@
                   <i class="bi bi-person-fill-dash"></i>
                   Supprimer le compte
                 </button>
-                <input name="token" type="hidden" value="<?php $_SESSION['rm-account-token'] = generateToken(); echo $_SESSION['rm-account-token']; ?>">
+                <input name="token" type="hidden" value="<?php echo buildToken('rm-account-token'); ?>">
               </form>
             </div>
           </div>
