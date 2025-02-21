@@ -3,6 +3,12 @@
     return mb_strimwidth(htmlspecialchars(trim((string) bin2hex(random_bytes(32)))), 0, 32, "");
   }
 
+  function buildToken($tokName) {
+    $tok = generateToken();
+    $_SESSION[$tokName] = $tok;
+    return $tok;
+  }
+
   function connectDB() {
     $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
     $username = 'webcal-user';
@@ -40,5 +46,9 @@
 
   function validate_pw($pw) {
     return preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/', $pw) == 1;
+  }
+
+  function validate_tok($tokName) {
+    return hash_equals($_SESSION[$tokName], $_POST[$tokName]);
   }
 ?>
