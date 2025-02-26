@@ -34,8 +34,8 @@
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/settings.css">
   </head>
-  <body page-name="index">
-    <include href="templates/header.php"></include>
+  <body page-name="settings">
+    <include href="templates/header-connected.html"></include>
     <main class="pt-5 min-vh-100">
       <div>
         <section class="sidebar p-1 pt-3">

@@ -27,8 +27,8 @@
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/calendar.css">
   </head>
-  <body page-name="index">
-    <include href="templates/header.php"></include>
+  <body page-name="calendar">
+    <include href="templates/header-connected.html"></include>
     <main class="pt-5 min-vh-100">
       <section class="container pt-3">
         <div class="row">
