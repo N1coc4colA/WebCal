@@ -87,7 +87,7 @@
 
 .unused-day
 {
-    background-color: #9b9b9b2b;
+    background-color: #9b9b9b2b !important;
 }
 
 .selected-day .day-tickets
@@ -96,6 +96,17 @@
 }
 
 .selected-day
+{
+    background-color: #69c0ff24;
+    border-bottom: 8px rgb(54, 69, 85) solid !important;
+}
+
+.day-entry:hover
+{
+    background-color: #69c0ff24;
+}
+
+.selected-day:active
 {
     background-color: #69c0ff24;
     border-bottom: 8px rgb(54, 69, 85) solid !important;
@@ -192,4 +203,17 @@
 #monthYear
 {
     margin: 0;
+}
+
+.hidden
+{
+    visibility: hidden;
+}
+
+.hidden-full
+{
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    padding: 0;
 }

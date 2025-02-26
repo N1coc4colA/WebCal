@@ -35,7 +35,8 @@
 
         // Loop through the days between begDate and endDate
         $currentDate = $begDate;
-        while (strtotime($currentDate) <= strtotime($endDate)) {
+        $endingTime = strtotime($endDate);
+        while (strtotime($currentDate) <= $endingTime) {
             // If it's a weekend, skip it
             if (isWeekend($currentDate)) {
                 $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));

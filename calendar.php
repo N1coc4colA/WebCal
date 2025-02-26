@@ -56,23 +56,23 @@
             </div>
             <div class="calendar-body">
               <div class="d-flex justify-content-between">
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline unused-day">
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
                   <p class="day-tickets text-center">0</p>
                 </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline striped-day">
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
                   <p class="day-tickets text-center">0</p>
                 </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline selected-day">
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
                   <p class="day-tickets text-center">0</p>
                 </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline current-day">
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
                   <p class="day-tickets text-center">0</p>
                 </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline selected-day current-day">
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
                   <p class="day-tickets text-center">0</p>
                 </div>
@@ -226,10 +226,44 @@
             </div>
           </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="mod-reservation-popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Réserver un créneau</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div id="mod-reservation-body" class="modal-body">
+                <p id="mod-nothingAvailable" class="hidden-full">Rien de disponible :/</p>
+                <p id="mod-responseError" class="hidden-full">Une erreur est survenue :/</p>
+                <form id="mod-responseOk" action="reserve-slot.php" method="POST" class="hidden-full">
+                  <div class="input-group mb-3">
+                    <label class="input-group-text" for="mod-timeSelect">Options</label>
+                    <select class="form-select" id="mod-timeSelect">
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="basic-url" class="form-label" for="mod-message">Message</label>
+                    <div class="form-text" id="form-message-info">200 caractères maximum.</div>
+                    <div class="input-group">
+                      <textarea id="mod-message" class="form-control" aria-label="Message area" maxlength="200"></textarea>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success">Réserver</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <include href="templates/footer.php"></include>
     <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/calendar.js"></script>
   </body>
 </html>
