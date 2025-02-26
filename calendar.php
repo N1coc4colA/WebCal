@@ -45,13 +45,13 @@
               </div>
               <div class="d-flex justify-content-between calendar-header-ctr">
                 <!-- Days of the week -->
-                <div class="text-center split7 calendar-header">Sun</div>
-                <div class="text-center split7 calendar-header">Mon</div>
-                <div class="text-center split7 calendar-header">Tue</div>
-                <div class="text-center split7 calendar-header">Wed</div>
-                <div class="text-center split7 calendar-header">Thu</div>
-                <div class="text-center split7 calendar-header">Fri</div>
-                <div class="text-center split7 calendar-header">Sat</div>
+                <div class="text-center split7 calendar-header">Dim</div>
+                <div class="text-center split7 calendar-header">Lun</div>
+                <div class="text-center split7 calendar-header">Mar</div>
+                <div class="text-center split7 calendar-header">Mer</div>
+                <div class="text-center split7 calendar-header">Jeu</div>
+                <div class="text-center split7 calendar-header">Ven</div>
+                <div class="text-center split7 calendar-header">Sam</div>
               </div>
             </div>
             <div class="calendar-body">
@@ -239,7 +239,7 @@
                 <p id="mod-responseError" class="hidden-full">Une erreur est survenue :/</p>
                 <form id="mod-responseOk" action="reserve-slot.php" method="POST" class="hidden-full">
                   <div class="input-group mb-3">
-                    <label class="input-group-text" for="mod-timeSelect">Options</label>
+                    <label class="input-group-text" for="mod-timeSelect">Créneau</label>
                     <select class="form-select" id="mod-timeSelect">
                     </select>
                   </div>
