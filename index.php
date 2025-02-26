@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="styles/global.css">
   </head>
   <body page-name="index">
-    <include href="templates/header.php"></include>
+    <include href="templates/header.html"></include>
     <main class="pt-5 min-vh-100 d-flex justify-content-between flex-column">
       <div class="container mt-5 pt-5">
         <div class="row mb-2">

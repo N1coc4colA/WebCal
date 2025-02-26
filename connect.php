@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="styles/global.css">
     </head>
     <body page-name="connect">
-        <include href="templates/header.php"></include>
+        <include href="templates/header.html"></include>
         <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
             <div class="d-flex flex-column justify-content-center">
                 <div class="card mt-5">
