@@ -59,4 +59,16 @@
   function validate_tok($tokName) {
     return isset($_SESSION[$tokName]) && !hash_equals($_SESSION[$tokName], mb_strimwidth(htmlspecialchars(trim($_POST[$tokName])), 0, 32, ""));
   }
+
+  function isWeekend($date) {
+    $dayOfWeek = date('w', strtotime($date)); // Get the day of the week (0 = Sunday, 6 = Saturday)
+    return $dayOfWeek == 0 || $dayOfWeek == 6;
+  }
+
+  function setupDebug() {
+    function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+      echo $errstr . " - " . 0 . " - " . $errno . " - " . $errfile . " - " . $errline;
+    }
+    set_error_handler("exception_error_handler");
+  }
 ?>
