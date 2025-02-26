@@ -18,7 +18,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="styles/global.css">
     </head>
-    <body page-name="registration">
+    <body page-name="register">
         <include href="templates/header.php"></include>
         <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
             <div class="card mt-5">

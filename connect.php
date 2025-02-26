@@ -24,7 +24,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="styles/global.css">
     </head>
-    <body page-name="registration">
+    <body page-name="connect">
         <include href="templates/header.php"></include>
         <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
             <div class="d-flex flex-column justify-content-center">
