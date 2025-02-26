@@ -6,4 +6,3 @@ drop table AR_DT;
 drop table INFO_DT;
 drop table USR_DT;
 "
-
