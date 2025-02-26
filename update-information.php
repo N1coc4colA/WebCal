@@ -1,8 +1,8 @@
 <?php
   include "session_utils.php";
 
-  if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: settings.php?upd-error-meth");
+  if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !validate_tok("info-upd-token")) {
+    header("Location: settings.php#edit?upd-error-meth");
     exit;
   }
 
@@ -14,29 +14,29 @@
   $email = san_mail($_POST['email']);
 
   if (!validate_phone($phone)) {
-    header("Location: settings.php?phone-error");
+    header("Location: settings.php#edit?phone-error");
     exit;
   }
 
   if (!validate_mail($email)) {
-    header("Location: settings.php?mail-error");
+    header("Location: settings.php#edit?mail-error");
     exit;
   }
 
   try {
     $pdo = connectDB();
 
-    $stmt = $pdo->prepare("SELECT id FROM USR_DT WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT id FROM USR_DT WHERE email=?");
     $stmt->execute([$email]);
     $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
     $rowCount = count($ids);
 
     if ($rowCount > 1) { // Looks like we got an error from somewhere. Very unlikely.
-      header("Location: settings.php?mail-error");
+      header("Location: settings.php#edit?mail-error");
       exit;
     }
     if ($rowCount == 1 && $_SESSION["id"] != $ids[0]) { // Not the current account.
-      header("Location: settings.php?mail-error");
+      header("Location: settings.php#edit?mail-error");
       exit;
     }
 
@@ -65,5 +65,5 @@
     exit;
   }
 
-  header("Location: settings.php");
+  header("Location: settings.php#edit?success-upd");
 ?>

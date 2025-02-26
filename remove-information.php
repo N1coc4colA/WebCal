@@ -11,6 +11,11 @@
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
     if (isset($_GET['account'])) {
+      if (!validate_tok("rm-account-token")) {
+        header("Location: settings.php#suppr?rm-error-meth");
+        exit;
+      }
+
       // Remove all indirect data
       // Remove informations about rendez-vous taken by the user.
       $stmt = $pdo->prepare("DELETE FROM INFO_DT WHERE id IN (SELECT info_id FROM AR_DT WHERE src=? OR dst=?)");
@@ -30,6 +35,11 @@
       header("Location: index.php");
       exit;
     } else if (isset($_GET['data'])) {
+      if (!validate_tok("rm-data-token")) {
+        header("Location: settings.php#suppr?rm-error-meth");
+        exit;
+      }
+
       // Remove indirect data
       // Remove informations about rendez-vous taken by the user.
       $stmt = $pdo->prepare("DELETE FROM INFO_DT WHERE id IN (SELECT info_id FROM AR_DT WHERE src=? OR dst=?)");
@@ -37,13 +47,10 @@
       // Rendez-vous made by this user
       $stmt = $pdo->prepare("DELETE FROM AR_DT WHERE (src=? OR dst=?)");
       $stmt->execute([$_SESSION["id"], $_SESSION["id"]]);
-
-      header("Location: settings.php#suppr");
-      exit;
     }
-
-    header("Location: settings.php#suppr");
   } catch (PDOException $e) {
     header("Location: error.php?error=sql-error.html");
   }
+
+  header("Location: settings.php#suppr?success-rm");
 ?>

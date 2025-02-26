@@ -1,7 +1,7 @@
 <?php
   include "session_utils.php";
 
-  if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !validate_tok("pw-ch-token")) {
     header("Location: settings.php?pw-error-meth");
     exit;
   }
@@ -34,5 +34,5 @@
     exit;
   }
 
-  header("Location: settings.php#pw");
+  header("Location: settings.php#pw?success-pw-ch");
 ?>
