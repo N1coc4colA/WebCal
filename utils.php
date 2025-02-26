@@ -48,6 +48,14 @@
     return preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/', $pw) == 1;
   }
 
+  function validate_date($date) {
+    return preg_match('/^\d{4}-\d{2}-\d{2}$/', $date);
+  }
+
+  function validate_time($time) {
+    return preg_match('/^\d{2}:\d{2}:\d{2}$/', $time);
+  }
+
   function validate_tok($tokName) {
     return isset($_SESSION[$tokName]) && !hash_equals($_SESSION[$tokName], mb_strimwidth(htmlspecialchars(trim($_POST[$tokName])), 0, 32, ""));
   }
