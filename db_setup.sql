@@ -24,15 +24,12 @@ CREATE TABLE IF NOT EXISTS INFO_DT (
 CREATE TABLE IF NOT EXISTS AR_DT (
     id INT PRIMARY KEY AUTO_INCREMENT,              -- UID
     src INT,                                        -- UID of the people who owns the range
-    dst INT,                                        -- UID of the people who made a reservation
     beg_date DATE,                                  -- Start date of the range (includes)
     beg_time TIME,                                  -- Start time of the range (includes)
     end_date DATE,                                  -- End date of the range (includes)
     end_time TIME,                                  -- End time of the range (includes)
-    used BOOLEAN DEFAULT FALSE,                     -- Tells if somebody did a reservation on the range
     info_id INT,                                    -- UID of the reservation information, set when used=TRUE
     FOREIGN KEY (src) REFERENCES USR_DT(id),        --
-    FOREIGN KEY (dst) REFERENCES USR_DT(id),        --
     FOREIGN KEY (info_id) REFERENCES INFO_DT(id)    --
 );
 
