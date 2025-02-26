@@ -9,7 +9,7 @@
   
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
-    header("Location: error.php?error=sql-error.html");
+    header("Location: error.php?error=sql-error");
     exit;
   }
 ?>

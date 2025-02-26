@@ -50,7 +50,7 @@
                     exit;
                 }
             } catch (PDOException $e) {
-                header("Location: error.php?error=register-error.html");
+                header("Location: error.php?error=register-error");
                 exit;
             }
         } else {

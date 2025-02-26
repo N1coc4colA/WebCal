@@ -61,7 +61,7 @@
     $message = "Bonjour $surname,\n\nCliquez sur le lien suivant pour vérifier votre email :\n$verificationLink\n\nCordialement,\nL'équipe d'inscription.";
     $headers = "From: noreply@localhost" . "\r\n";
   } catch (PDOException $e) {
-    header("Location: error.php?error=sql-error.html");
+    header("Location: error.php?error=sql-error");
     exit;
   }
 

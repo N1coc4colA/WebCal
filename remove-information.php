@@ -49,7 +49,7 @@
       $stmt->execute([$_SESSION["id"], $_SESSION["id"]]);
     }
   } catch (PDOException $e) {
-    header("Location: error.php?error=sql-error.html");
+    header("Location: error.php?error=sql-error");
   }
 
   header("Location: settings.php#suppr?success-rm");

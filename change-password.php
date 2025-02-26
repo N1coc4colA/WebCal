@@ -30,7 +30,7 @@
     $stmt = $pdo->prepare("UPDATE USR_DT SET pwh=? WHERE (id=?)");
     $stmt->execute([$hashedPassword, $_SESSION["id"]]);
   } catch (PDOException $e) {
-    header("Location: error.php?error=sql-error.html");
+    header("Location: error.php?error=sql-error");
     exit;
   }
 
