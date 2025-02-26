@@ -49,6 +49,6 @@
   }
 
   function validate_tok($tokName) {
-    return hash_equals($_SESSION[$tokName], mb_strimwidth(htmlspecialchars(trim($_POST["token"]))), 0, 32, "");
+    return isset($_SESSION[$tokName]) && !hash_equals($_SESSION[$tokName], mb_strimwidth(htmlspecialchars(trim($_POST[$tokName])), 0, 32, ""));
   }
 ?>
