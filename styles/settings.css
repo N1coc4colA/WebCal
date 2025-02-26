@@ -3,6 +3,11 @@
     color: black;
 }
 
+#navbarNav .navbar-nav .nav-item .nav-link
+{
+    color: white;
+}
+
 .sidebar .nav .nav-item .nav-link
 {
     background-color: var(--bs-dark-bg-subtle);
