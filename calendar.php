@@ -1,5 +1,5 @@
 <?php
-  session_start();
+  include "session_utils.php";
 
   if (!isset($_SESSION["id"])  || is_null($_SESSION["id"])) {
     header("location: connect.php");
@@ -227,20 +227,25 @@
           </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="mod-reservation-popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="mod-reservation-popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mod-resTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Réserver un créneau</h1>
+                <h1 class="modal-title fs-5" id="mod-resTitle">Réserver un créneau</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div id="mod-reservation-body" class="modal-body">
-                <p id="mod-nothingAvailable" class="hidden-full">Rien de disponible :/</p>
-                <p id="mod-responseError" class="hidden-full">Une erreur est survenue :/</p>
+                <div>
+                  <p id="mod-nothingAvailable" class="hidden-full">Rien de disponible :/</p>
+                  <p id="mod-responseError" class="hidden-full">Une erreur est survenue :/</p>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                  </div>
+                </div>
                 <form id="mod-responseOk" action="reserve-slot.php" method="POST" class="hidden-full">
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="mod-timeSelect">Créneau</label>
-                    <select class="form-select" id="mod-timeSelect">
+                    <select class="form-select" id="mod-timeSelect" name="time">
                     </select>
                   </div>
                   <div class="mb-3">
@@ -250,11 +255,13 @@
                       <textarea id="mod-message" class="form-control" aria-label="Message area" maxlength="200"></textarea>
                     </div>
                   </div>
+                  <input id="mod-dateSelect" name="date" type="hidden" value="2025-06-28">
+                  <input name="token" type="hidden" value="<?php echo buildToken('slot-res-token'); ?>">
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-success">Réserver</button>
+                  </div>
                 </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-success">Réserver</button>
               </div>
             </div>
           </div>
@@ -276,13 +283,16 @@
           }
           echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"toast\" aria-label=\"Close\"></button>
               </div>
-              <div class=\"toast-body\">";
+            <div class=\"toast-body\">";
 
           if ($_GET["alert"] == "success") {
             echo "Le créneau a été réservé.";
           } else if ($_GET["alert"] == "error-meth") {
             echo "Échec de l'opération.";
+          } else if ($_GET["alert"] == "error") {
+            echo "Erreur interne, échec de l'opération.";
           } else {
+            print_r($_GET); 
             echo "Message vide.";
           }
 

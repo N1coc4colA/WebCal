@@ -1,7 +1,5 @@
 // Used for the year & month mainly.
 let selectedDate = new Date();
-// Used for the "now" date.
-let currentDate = new Date();
 // Used for slot reservation dialog.
 let activeDate = new Date();
 
@@ -17,6 +15,27 @@ function daysInMonth(date)
 {
     const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     return daysInMonth;
+}
+
+function isSameDate(d1, d2)
+{
+    console.log(d1.getFullYear() + "-" + d1.getMonth() + "-" + d1.getDate() + " | " +
+                d2.getFullYear() + "-" + d2.getMonth() + "-" + d2.getDate());
+
+    return  d1.getFullYear() === d2.getFullYear() &&
+            d1.getMonth() === d2.getMonth() &&
+            d1.getDate() === d2.getDate();
+}
+
+function isSameYearMonth(d1, d2)
+{
+    return  d1.getFullYear() === d2.getFullYear() &&
+            d1.getMonth() === d2.getMonth();
+}
+
+function formatDate(d)
+{
+    return d.getFullYear().toString() + "-" + (d.getMonth() +1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0');
 }
 
 function setupCalendar()
@@ -49,7 +68,7 @@ function setupCalendar()
     // 0s & 6s are closed days.
     for (let i = 0; i < 5; ++i) {
         entries[i*7].classList.add("striped-day");
-        entries[i*7 +6].classList.add("striped-day");
+        entries[i*7+6].classList.add("striped-day");
     }
 
     for (let i = 0; i < entries.length; ++i) {
@@ -64,7 +83,7 @@ function setupCalendar()
                 setupMonth(selectedDate); // Reload UI
                 activeDate = selectedDate;
             } else {
-                activeDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), i - startDay);
+                activeDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), i - startDay +1);
             }
 
             popupReservationModal();
@@ -124,14 +143,15 @@ function setupMonth(date)
     for (let i = 0; i < enabledDays.length; ++i) {
         enabledDays[i].classList.remove("current-day");
     }
-    if (date == currentDate) {
-        entries[date.getDate() + startDay].classList.add("current-day");
+    const now = new Date();
+    if (isSameYearMonth(now, date)) {
+        entries[now.getDate() + startDay].classList.add("current-day");
     }
 
     const begDate = new Date(date.getFullYear(), date.getMonth());
     const endDate = new Date(date.getFullYear(), date.getMonth(), daysInMonth(date)+1);
-    const begDateString = begDate.toISOString().split('T')[0];
-    const endDateString = endDate.toISOString().split('T')[0];
+    const begDateString = formatDate(begDate);
+    const endDateString = formatDate(endDate);
 
     // Get reserved dates
     const path = "http://localhost/query/schedule.php?user&beg-date=" + begDateString + "&end-date=" + endDateString + "&beg-time=00:00:00&end-time=23:59:59";
@@ -139,6 +159,7 @@ function setupMonth(date)
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
         return response.json();
     })
     .then(data => {
@@ -160,7 +181,7 @@ function setupMonth(date)
         for (let i = 1; i <= monthDays+1; ++i) {
             if (tickets[i+startDay]) {
                 const vDate = new Date(date.getFullYear(), date.getMonth(), i+1);
-                const curr = vDate.toISOString().split('T')[0];
+                const curr = formatDate(vDate);
     
                 if (!days[curr] || days[curr] == 0) {
                     tickets[i+startDay].classList.add("hidden");
@@ -182,7 +203,10 @@ function popupReservationModal()
     slotReservationModal.show();
 
     // Popuplate the form.
-    const dateString = activeDate.toISOString().split('T')[0];
+    const dateString = formatDate(activeDate);
+
+    document.getElementById("mod-dateSelect").value = dateString;
+    document.getElementById("mod-resTitle").innerHTML = "Réserver un créneau le " + activeDate.getDate().toString();
 
     // Get reserved dates
     const path = "http://localhost/query/schedule.php?available&beg-date=" + dateString + "&end-date=" + dateString + "&beg-time=00:00:00&end-time=23:59:59";
@@ -226,4 +250,11 @@ function popupReservationModal()
 }
 
 setupCalendar();
-setupMonth(currentDate);
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has("date")) {
+    selectedDate = new Date(urlParams.get("date"));
+    setupMonth(selectedDate);
+} else {
+    setupMonth(new Date());
+}
