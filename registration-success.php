@@ -59,7 +59,7 @@
                 ?>
             </section>
         </main>
-        <include href="templates/footer.php"></include>
+        <include href="templates/footer.html"></include>
         <script src="js/script.js"></script>
         <script>
             // Redirect function
