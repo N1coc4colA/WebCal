@@ -103,7 +103,7 @@ function setupMonth(date)
     const endDateString = endDate.toISOString().split('T')[0];
 
     // Get reserved dates
-    const path = "http://localhost/query/schedule.php?available&beg-date=" + begDateString + "&end-date=" + endDateString + "&beg-time=00:00:00&end-time=23:59:59";
+    const path = "http://localhost/query/schedule.php?user&beg-date=" + begDateString + "&end-date=" + endDateString + "&beg-time=00:00:00&end-time=23:59:59";
     fetch(path).then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
