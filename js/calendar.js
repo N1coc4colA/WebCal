@@ -1,6 +1,6 @@
 // Used for the year & month mainly.
 let selectedDate = new Date();
-// Used for slot reservation dialog.
+// Used for events dialogs, modals.
 let activeDate = new Date();
 
 // Map of the days that have a slot reserved by the user for the currently selected month.
@@ -9,6 +9,9 @@ let currentDays = new Map();
 let upcomingEvents = new Array();
 
 const slotReservationModal = new bootstrap.Modal(document.getElementById("mod-reservation-popup"));
+const eventsModal = new bootstrap.Modal(document.getElementById("mod-events-popup"));
+
+const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
 
 function daysInMonth(date)
@@ -36,6 +39,89 @@ function isSameYearMonth(d1, d2)
 function formatDate(d)
 {
     return d.getFullYear().toString() + "-" + (d.getMonth() +1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0');
+}
+
+function truncate(s, len)
+{
+    if (s.length <= len) {
+        return s;
+    }
+
+    return s.substring(0, len);
+}
+
+function requestEventDeletion(eventId)
+{
+    // API endpoint URL
+    const url = "https://localhost/remove-event.php?eid=" + eventId; // Replace with your API endpoint
+
+    // Options for the DELETE request
+    const options = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json" // Add if the API expects JSON responses
+        }
+    };
+
+    // Sending the DELETE request
+    fetch(url, options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); // If the API returns JSON
+    })
+    .then(data => {
+        console.log("Delete successful:", data);
+    })
+    .catch(error => {
+        console.error("Error in DELETE request:", error);
+    });
+}
+
+function handleEventRemoval(elem)
+{
+    if (!elem.hasAttribute("event-id")) {
+        return;
+    }
+
+    requestEventDeletion(elem.getAttribute("event-id"));
+}
+
+function buildEventCard(date, beg, end, message, eventId)
+{
+    const monthName = monthNames[date.getMonth()];
+    const day = date.getDate().toString();
+
+    if (message.length == 0) {
+        message = "Vous n'avez pas laissé de message.";
+    }
+
+    code = " \
+        <div class=\"d-flex flex-column\"> \
+            <div class=\"upcoming-entry d-flex flex-row\"> \
+                <div class=\"d-flex flex-column mrg-l-5\">";
+    code += "       <p class=\"rdv-month text-center m-0\">";
+    code +=         monthName;
+    code += "       </p> \
+                    <p class=\"rdv-date text-center m-0\">";
+    code +=         day;
+    code += "       </p> \
+                    <p class=\"rdv-time text-center m-0\">";
+    code +=         truncate(beg, 5) + " - " + truncate(end, 5);
+    code += "       </p> \
+                </div> \
+                <div class=\"upcoming-sep\"></div> \
+                <div class=\"entry-content\"> \
+                    <p class=\"rdv-title\">";
+    code +=         message;
+    code += "       </p> \
+                </div> \
+                <i class=\"bi bi-trash3-fill event-rm-btn\" event-id=\"" + eventId + "\"></i> \
+            </div> \
+         </div>";
+
+    return code;
 }
 
 function setupCalendar()
@@ -89,13 +175,29 @@ function setupCalendar()
             popupReservationModal();
         });
     }
+
+    for (let i = 0; i < tickets.length; ++i) {
+        tickets[i].addEventListener('click', function(event) {
+            const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+            const startDay = firstDayOfMonth.getDay();
+
+            activeDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), i - startDay +1);
+
+            popupEventsModal();
+            event.stopPropagation();
+        });
+    }
+
+    document.body.addEventListener('click', function(event) {
+        // Check if the clicked element has the class 'rm'
+        if (event.target.classList.contains('event-rm-btn')) {
+            handleEventRemoval(event.target);
+        }
+    });
 }
 
 function setupMonth(date)
 {
-    // Day names
-    const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-
     // Set month name and year first.
     document.getElementById("monthYear").innerHTML = monthNames[date.getMonth()] + " " + date.getFullYear();
 
@@ -180,7 +282,7 @@ function setupMonth(date)
 
         for (let i = 1; i <= monthDays+1; ++i) {
             if (tickets[i+startDay]) {
-                const vDate = new Date(date.getFullYear(), date.getMonth(), i+1);
+                const vDate = new Date(date.getFullYear(), date.getMonth(), i);
                 const curr = formatDate(vDate);
     
                 if (!days[curr] || days[curr] == 0) {
@@ -208,14 +310,15 @@ function popupReservationModal()
     document.getElementById("mod-dateSelect").value = dateString;
     document.getElementById("mod-resTitle").innerHTML = "Réserver un créneau le " + activeDate.getDate().toString();
 
+    for (const child of document.getElementById("mod-reservation-body").children) {
+        child.classList.add("hidden-full");
+    }
+
     // Get reserved dates
     const path = "http://localhost/query/schedule.php?available&beg-date=" + dateString + "&end-date=" + dateString + "&beg-time=00:00:00&end-time=23:59:59";
     fetch(path).then(response => {
         if (!response.ok) {
-            for (const child of document.getElementById("mod-reservation-body").children) {
-                child.classList.add("hidden-full");
-            }
-            document.getElementById("mod-responseError").classList.remove("hidden-full");
+            document.getElementById("mod-resResponseError").classList.remove("hidden-full");
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
@@ -231,20 +334,61 @@ function popupReservationModal()
 
         document.getElementById("mod-timeSelect").innerHTML = htmlResult;
 
-        for (const child of document.getElementById("mod-reservation-body").children) {
-            child.classList.add("hidden-full");
-        }
         if (data.length == 0) {
             document.getElementById("mod-nothingAvailable").classList.remove("hidden-full");
         } else {
-            document.getElementById("mod-responseOk").classList.remove("hidden-full");
+            document.getElementById("mod-resResponseOk").classList.remove("hidden-full");
         }
     })
     .catch(error => {
         for (const child of document.getElementById("mod-reservation-body").children) {
             child.classList.add("hidden-full");
         }
-        document.getElementById("mod-responseError").classList.remove("hidden-full");
+        document.getElementById("mod-resResponseError").classList.remove("hidden-full");
+        console.error('Error fetching data:', error);
+    });
+}
+
+function popupEventsModal()
+{
+    // Now make popup for the date.
+    eventsModal.show();
+
+    // Popuplate the form.
+    const dateString = formatDate(activeDate);
+
+    document.getElementById("mod-evTitle").innerHTML = "Rendez-vous du " + activeDate.getDate().toString();
+
+    for (const child of document.getElementById("mod-reservation-body").children) {
+        child.classList.add("hidden-full");
+    }
+
+    // Get reserved dates
+    const path = "http://localhost/query/schedule.php?user&beg-date=" + dateString + "&end-date=" + dateString + "&beg-time=00:00:00&end-time=23:59:59";
+    fetch(path).then(response => {
+        if (!response.ok) {
+            document.getElementById("mod-evResponseError").classList.remove("hidden-full");
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return response.json();
+    })
+    .then(data => {
+        let htmlResult = "";
+        for (let i = 0; i < data.length; ++i) {
+            htmlResult += buildEventCard(new Date(Date.parse(data[i]["beg_date"])), data[i]["beg_time"], data[i]["end_time"], truncate(data[i]["msg"], 50), data[i]["id"]);
+        }
+
+        document.getElementById("mod-evContainer").innerHTML = htmlResult;
+
+        if (data.length == 0) {
+            document.getElementById("mod-noEvent").classList.remove("hidden-full");
+        } else {
+            document.getElementById("mod-evResponseOk").classList.remove("hidden-full");
+        }
+    })
+    .catch(error => {
+        document.getElementById("mod-evResponseError").classList.remove("hidden-full");
         console.error('Error fetching data:', error);
     });
 }

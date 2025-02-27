@@ -158,12 +158,13 @@
 
 .upcoming-entry
 {
-    border-radius: 7px;
     border: 1px lightgray solid;
     padding: 5px;
     height: 100px;
     width: 100%;
     background-color: #e8e8e83b;
+    border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 .upcoming-sep
@@ -173,11 +174,45 @@
     background-color: lightgray;
 }
 
+.entry-content
+{
+    width: calc(calc(100%) - 141px);
+}
+
+.event-rm-btn
+{
+    height: 24px;
+    width: 24px;
+    text-align: center;
+    border-radius: 200px;
+}
+
+.event-rm-btn:hover
+{
+    background-color: #d9d9d9;
+}
+
+.event-rm-btn:active
+{
+    background-color: red;
+    color: white;
+}
+
+.rdv-month
+{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    color: var(--bs-body-color);
+}
+
 .rdv-date
 {
     font-weight: bold;
     font-size: 30pt;
     color: black;
+    line-height: 30pt;
 }
 
 .rdv-time

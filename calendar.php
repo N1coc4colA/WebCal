@@ -213,36 +213,36 @@
               <div class="d-flex flex-column">
                 <div class="upcoming-entry d-flex flex-row">
                   <div class="d-flex flex-column mrg-l-5">
+                    <p class="rdv-month text-center m-0 text-mutted">Novembre</p>
                     <p class="rdv-date text-center m-0">5</p>
                     <p class="rdv-time text-center m-0">12:00 - 13:00</p>
                   </div>
                   <div class="upcoming-sep"></div>
-                  <div>
-                    <p class="rdv-name">Jordan B.</p>
+                  <div class="entry-content">
                     <p class="rdv-title">Bonjour !</p>
                   </div>
+                  <i class="bi bi-trash3-fill event-rm-btn"></i>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Modal -->
         <div class="modal fade" id="mod-reservation-popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mod-resTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="mod-resTitle">Réserver un créneau</h1>
+                <h1 class="modal-title fs-5" id="mod-resTitle"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div id="mod-reservation-body" class="modal-body">
                 <div>
                   <p id="mod-nothingAvailable" class="hidden-full">Rien de disponible :/</p>
-                  <p id="mod-responseError" class="hidden-full">Une erreur est survenue :/</p>
+                  <p id="mod-resResponseError" class="hidden-full">Une erreur est survenue :/</p>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                   </div>
                 </div>
-                <form id="mod-responseOk" action="reserve-slot.php" method="POST" class="hidden-full">
+                <form id="mod-resResponseOk" action="reserve-slot.php" method="POST" class="hidden-full">
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="mod-timeSelect">Créneau</label>
                     <select class="form-select" id="mod-timeSelect" name="time">
@@ -262,6 +262,25 @@
                     <button type="submit" class="btn btn-success">Réserver</button>
                   </div>
                 </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="mod-events-popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mod-evTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="mod-evTitle"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div id="mod-reservation-body" class="modal-body">
+                <div>
+                  <p id="mod-noEvent" class="hidden-full">Rien de disponible :/</p>
+                  <p id="mod-evResponseError" class="hidden-full">Une erreur est survenue :/</p>
+                </div>
+                <div id="mod-evResponseOk" class="hidden-full">
+                  <div id="mod-evContainer"></div
+                </div>
               </div>
             </div>
           </div>
