@@ -1,9 +1,14 @@
+// Used for the year & month mainly.
 let selectedDate = new Date();
+// Used for the "now" date.
 let currentDate = new Date();
+// Used for slot reservation dialog.
 let activeDate = new Date();
 
+// Map of the days that have a slot reserved by the user for the currently selected month.
 let currentDays = new Map();
-let soonDays = new Array();
+// List of the upcoming events.
+let upcomingEvents = new Array();
 
 const slotReservationModal = new bootstrap.Modal(document.getElementById("mod-reservation-popup"));
 
@@ -16,6 +21,17 @@ function daysInMonth(date)
 
 function setupCalendar()
 {
+    // Calendar header
+    document.getElementById("nextMonth").addEventListener('click', function() {
+        selectedDate.setMonth(selectedDate.getMonth() + 1);
+        setupMonth(selectedDate);
+    });
+    document.getElementById("prevMonth").addEventListener('click', function() {
+        selectedDate.setMonth(selectedDate.getMonth() - 1);
+        setupMonth(selectedDate);
+    });
+
+    // Main calendar body
     let entries = document.getElementsByClassName("day-entry");
     let tickets = document.getElementsByClassName("day-tickets");
     let days = document.getElementsByClassName("day-text");
@@ -32,14 +48,14 @@ function setupCalendar()
 
     // 0s & 6s are closed days.
     for (let i = 0; i < 5; ++i) {
-        entries[i*7].classList.toggle("striped-day");
-        entries[i*7 +6].classList.toggle("striped-day");
+        entries[i*7].classList.add("striped-day");
+        entries[i*7 +6].classList.add("striped-day");
     }
 
     for (let i = 0; i < entries.length; ++i) {
         entries[i].addEventListener('click', function() {
             const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
-            const startDay = firstDayOfMonth.getDay() % 7 -1;
+            const startDay = firstDayOfMonth.getDay();
 
             // If it is grayed, switch month and go to new date.
             let elem = document.getElementById("day-entry-" + i.toString());
@@ -59,11 +75,16 @@ function setupCalendar()
 function setupMonth(date)
 {
     // Day names
-    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+
+    // Set month name and year first.
+    document.getElementById("monthYear").innerHTML = monthNames[date.getMonth()] + " " + date.getFullYear();
+
+    // All other calendar stuff updates.
     // First day of current month
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     // Week day index
-    const startDay = firstDayOfMonth.getDay() % 7 -1;
+    const startDay = firstDayOfMonth.getDay() -1;
     // Days in current month
     const monthDays = daysInMonth(date);
 
@@ -75,13 +96,15 @@ function setupMonth(date)
     let i = 1;
     for (; i <= monthDays; ++i) {
         days[i+startDay].innerHTML = i.toString();
+        entries[i+startDay].classList.remove("unused-day");
+        tickets[i+startDay].classList.remove("hidden");
     }
 
     // After month
     for (let j = 1; (i+startDay) < days.length; ++i, ++j) {
         days[i+startDay].innerHTML = j.toString();
-        entries[i+startDay].classList.toggle("unused-day");
-        tickets[i+startDay].classList.toggle("hidden");
+        entries[i+startDay].classList.add("unused-day");
+        tickets[i+startDay].classList.add("hidden");
     }
 
     // Before month
@@ -89,13 +112,21 @@ function setupMonth(date)
     prevMonth.setMonth(date.getMonth() - 1);
     const prevDays = daysInMonth(prevMonth);
     for (let j = 0; j <= startDay; ++j) {
+        console.log(prevDays - startDay + j + ", " + j);
+
         days[j].innerHTML = (prevDays - startDay + j).toString();
-        entries[j].classList.toggle("unused-day");
-        tickets[j].classList.toggle("hidden");
+        entries[j].classList.add("unused-day");
+        tickets[j].classList.add("hidden");
     }
 
     // Highlight current date
-    entries[date.getDate() + startDay].classList.toggle("current-day");
+    let enabledDays = document.getElementsByClassName("current-day");
+    for (let i = 0; i < enabledDays.length; ++i) {
+        enabledDays[i].classList.remove("current-day");
+    }
+    if (date == currentDate) {
+        entries[date.getDate() + startDay].classList.add("current-day");
+    }
 
     const begDate = new Date(date.getFullYear(), date.getMonth());
     const endDate = new Date(date.getFullYear(), date.getMonth(), daysInMonth(date)+1);
@@ -158,7 +189,7 @@ function popupReservationModal()
             for (const child of document.getElementById("mod-reservation-body").children) {
                 child.classList.add("hidden-full");
             }
-            document.getElementById("mod-responseError").classList.toggle("hidden-full");
+            document.getElementById("mod-responseError").classList.remove("hidden-full");
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
@@ -180,16 +211,16 @@ function popupReservationModal()
             child.classList.add("hidden-full");
         }
         if (data.length == 0) {
-            document.getElementById("mod-nothingAvailable").classList.toggle("hidden-full");
+            document.getElementById("mod-nothingAvailable").classList.remove("hidden-full");
         } else {
-            document.getElementById("mod-responseOk").classList.toggle("hidden-full");
+            document.getElementById("mod-responseOk").classList.remove("hidden-full");
         }
     })
     .catch(error => {
         for (const child of document.getElementById("mod-reservation-body").children) {
             child.classList.add("hidden-full");
         }
-        document.getElementById("mod-responseError").classList.toggle("hidden-full");
+        document.getElementById("mod-responseError").classList.remove("hidden-full");
         console.error('Error fetching data:', error);
     });
 }
