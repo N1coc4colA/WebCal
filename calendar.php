@@ -260,10 +260,43 @@
           </div>
         </div>
       </section>
+      <?php
+
+        if (isset($_GET['alert'])) {
+          echo "
+          <div class=\"toast-container position-fixed bottom-0 end-0 p-3\">
+            <div id=\"toast-notifier\" class=\"toast\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\">
+              <div class=\"toast-header\">";
+          if ($_GET["alert"] == "success") {
+            echo "<i class=\"bi bi-check-circle-fill\" style=\"color: var(--bs-teal);\"></i>";
+            echo "<strong class=\"me-auto\">Succès de l'opération</strong>";
+          } else {
+            echo "<i class=\"bi bi-exclamation-triangle-fill\" style=\"color: var(--bs-warning);\"></i>";
+            echo "<strong class=\"me-auto\">Échec de l'opération</strong>";
+          }
+          echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"toast\" aria-label=\"Close\"></button>
+              </div>
+              <div class=\"toast-body\">";
+
+          if ($_GET["alert"] == "success") {
+            echo "Le créneau a été réservé.";
+          } else if ($_GET["alert"] == "error-meth") {
+            echo "Échec de l'opération.";
+          } else {
+            echo "Message vide.";
+          }
+
+          echo "</div>
+            </div></div>
+          ";
+        }
+
+      ?>
     </main>
     <include href="templates/footer.html"></include>
     <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="js/calendar.js"></script>
+    <script src="js/toaster.js"></script>
   </body>
 </html>
