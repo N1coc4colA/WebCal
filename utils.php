@@ -56,12 +56,16 @@
     return preg_match('/^\d{2}:\d{2}:\d{2}$/', $time);
   }
 
+  function validate_string($value) {
+    return isset($value) && $value !== "";
+  }
+
   function validate_tok($tokName) {
     return isset($_SESSION[$tokName]) && !hash_equals($_SESSION[$tokName], mb_strimwidth(htmlspecialchars(trim($_POST[$tokName])), 0, 32, ""));
   }
 
   function isWeekend($date) {
-    $dayOfWeek = date('w', strtotime($date)); // Get the day of the week (0 = Sunday, 6 = Saturday)
+    $dayOfWeek = date('w', strtotime($date));
     return $dayOfWeek == 0 || $dayOfWeek == 6;
   }
 
