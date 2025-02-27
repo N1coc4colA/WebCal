@@ -95,9 +95,11 @@ function setupMonth(date)
     // Current month
     let i = 1;
     for (; i <= monthDays; ++i) {
-        days[i+startDay].innerHTML = i.toString();
-        entries[i+startDay].classList.remove("unused-day");
-        tickets[i+startDay].classList.remove("hidden");
+        if (days[i+startDay]) {
+            days[i+startDay].innerHTML = i.toString();
+            entries[i+startDay].classList.remove("unused-day");
+            tickets[i+startDay].classList.remove("hidden");
+        }
     }
 
     // After month
@@ -112,8 +114,6 @@ function setupMonth(date)
     prevMonth.setMonth(date.getMonth() - 1);
     const prevDays = daysInMonth(prevMonth);
     for (let j = 0; j <= startDay; ++j) {
-        console.log(prevDays - startDay + j + ", " + j);
-
         days[j].innerHTML = (prevDays - startDay + j).toString();
         entries[j].classList.add("unused-day");
         tickets[j].classList.add("hidden");
@@ -158,14 +158,16 @@ function setupMonth(date)
         }
 
         for (let i = 1; i <= monthDays+1; ++i) {
-            const vDate = new Date(date.getFullYear(), date.getMonth(), i+1);
-            const curr = vDate.toISOString().split('T')[0];
-
-            if (!days[curr] || days[curr] == 0) {
-                tickets[i+startDay].classList.add("hidden");
-            } else {
-                tickets[i+startDay].classList.remove("hidden");
-                tickets[i+startDay].innerHTML = days[curr].toString();
+            if (tickets[i+startDay]) {
+                const vDate = new Date(date.getFullYear(), date.getMonth(), i+1);
+                const curr = vDate.toISOString().split('T')[0];
+    
+                if (!days[curr] || days[curr] == 0) {
+                    tickets[i+startDay].classList.add("hidden");
+                } else {
+                    tickets[i+startDay].classList.remove("hidden");
+                    tickets[i+startDay].innerHTML = days[curr].toString();
+                }
             }
         }
     })
@@ -196,8 +198,6 @@ function popupReservationModal()
         return response.json();
     })
     .then(data => {
-        console.log(data); // Display the retrieved data
-
         let htmlResult = "";
         let days = [];
         for (let i = 0; i < data.length; ++i) {
