@@ -8,7 +8,6 @@
     header('Content-Type: application/json');
 
     $pdo = connectDB();
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if (isset($_GET['available']) &&
         isset($_GET['beg-date']) && validate_date($_GET['beg-date']) &&
@@ -51,14 +50,14 @@
                 // Generate time slots from start to end time (1-hour intervals)
                 $start = strtotime("$currentDate $startTime");
                 $end = strtotime("$currentDate $endTime");
-        
+
                 while ($start < $end) {
                     // Create the current slot (1-hour increment)
                     $slotStartDate = date('Y-m-d', $start); // Separate date part
                     $slotStartTime = date('H:i:s', $start); // Separate time part
                     $slotEndDate = date('Y-m-d', $start + 3600); // Separate date part for end
                     $slotEndTime = date('H:i:s', $start + 3600); // Separate time part for end
-        
+
                     // Check if the slot is already booked
                     $isBooked = false;
                     foreach ($result as $booking) {
