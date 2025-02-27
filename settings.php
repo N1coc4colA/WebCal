@@ -174,7 +174,7 @@
           echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"toast\" aria-label=\"Close\"></button>
               </div>
               <div class=\"toast-body\">";
-          
+
           if ($_GET["alert"] == "success-upd") {
             echo "La mise à jour des information a été effectuée.";
           } else if ($_GET["alert"] == "success-rm") {
@@ -209,6 +209,7 @@
     <include href="templates/footer.html"></include>
     <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/toaster.js"></script>
     <script>
             if (window.location.hash) {
               console.log("-" + window.location.hash + "-");
@@ -275,12 +276,6 @@
                 // Toggle the eye and bi-eye icon
                 nPasswordToggle.classList.toggle('bi-eye');
             });
-
-            const notif = document.getElementById("toast-notifier");
-            if (notif != null) {
-              const toast = new bootstrap.Toast(notif);
-              toast.show();
-            }
     </script>
   </body>
 </html>
