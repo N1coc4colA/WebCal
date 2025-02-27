@@ -2,7 +2,7 @@
   include "session_utils.php";
 
   if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: settings.php#suppr?rm-error-meth");
+    header("Location: settings.php#suppr?alert=rm-error-meth");
     exit;
   }
 
@@ -12,7 +12,7 @@
 
     if (isset($_GET['account'])) {
       if (!validate_tok("rm-account-token")) {
-        header("Location: settings.php#suppr?rm-error-meth");
+        header("Location: settings.php#suppr?alert=rm-error-meth");
         exit;
       }
 
@@ -36,7 +36,7 @@
       exit;
     } else if (isset($_GET['data'])) {
       if (!validate_tok("rm-data-token")) {
-        header("Location: settings.php#suppr?rm-error-meth");
+        header("Location: settings.php#suppr?alert=rm-error-meth");
         exit;
       }
 
@@ -52,5 +52,5 @@
     header("Location: error.php?error=sql-error");
   }
 
-  header("Location: settings.php#suppr?success-rm");
+  header("Location: settings.php#suppr?alert=success-rm");
 ?>

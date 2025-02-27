@@ -2,7 +2,7 @@
   include "session_utils.php";
 
   if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !validate_tok("pw-ch-token")) {
-    header("Location: settings.php?pw-error-meth");
+    header("Location: settings.php#pw?alert=pw-error-meth");
     exit;
   }
 
@@ -20,7 +20,7 @@
     $pwh = $row["pwh"];
 
     if (!password_verify($password, $pwh)) {
-      header("Location: settings.php#pw?pw-error");
+      header("Location: settings.php#pw?alert=pw-error");
       exit;
     }
 
@@ -34,5 +34,5 @@
     exit;
   }
 
-  header("Location: settings.php#pw?success-pw-ch");
+  header("Location: settings.php#pw?alert=success-pw-ch");
 ?>

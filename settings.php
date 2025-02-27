@@ -157,9 +157,58 @@
           </div>
         </section>
       </div>
+      <?php
+
+        if (isset($_GET['alert'])) {
+          echo "
+          <div class=\"toast-container position-fixed bottom-0 end-0 p-3\">
+            <div id=\"toast-notifier\" class=\"toast\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\">
+              <div class=\"toast-header\">";
+          if ($_GET["alert"] == "success-upd" || $_GET["alert"] == "success-rm" || $_GET["alert"] == "success-ch-pw") {
+            echo "<i class=\"bi bi-check-circle-fill\" style=\"color: var(--bs-teal);\"></i>";
+            echo "<strong class=\"me-auto\">Succès de l'opération</strong>";
+          } else {
+            echo "<i class=\"bi bi-exclamation-triangle-fill\" style=\"color: var(--bs-warning);\"></i>";
+            echo "<strong class=\"me-auto\">Échec de l'opération</strong>";
+          }
+          echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"toast\" aria-label=\"Close\"></button>
+              </div>
+              <div class=\"toast-body\">";
+          
+          if ($_GET["alert"] == "success-upd") {
+            echo "La mise à jour des information a été effectuée.";
+          } else if ($_GET["alert"] == "success-rm") {
+            echo "La suppression des information a été effectuée.";
+          } else if ($_GET["alert"] == "success-ch-pw") {
+            echo "Le changement de mot de passe a été efffectué.";
+          } else if ($_GET["alert"] == "pw-error-meth") {
+            echo "Échec de la requête.";
+          } else if ($_GET["alert"] == "pw-error") {
+            echo "Mauvais mot de passe.";
+          } else if ($_GET["alert"] == "rm-error-meth") {
+            echo "Échec de la requête.";
+          } else if ($_GET["alert"] == "upd-error-meth") {
+            echo "Échec de la requête.";
+          } else if ($_GET["alert"] == "phone-error") {
+            echo "Il y a une erreur avec votre numéro de téléphone.";
+          } else if ($_GET["alert"] == "mail-error") {
+            echo "Il semblerait que le mail ne soit pas bon, ou déjà utilisé.";
+          } else if ($_GET["alert"] == "success-upd") {
+            echo "Les données ont été mises à jour.";
+          } else {
+            echo "Message vide.";
+          }
+
+          echo "</div>
+            </div></div>
+          ";
+        }
+
+      ?>
     </main>
     <include href="templates/footer.html"></include>
     <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
             if (window.location.hash) {
               console.log("-" + window.location.hash + "-");
@@ -226,7 +275,12 @@
                 // Toggle the eye and bi-eye icon
                 nPasswordToggle.classList.toggle('bi-eye');
             });
+
+            const notif = document.getElementById("toast-notifier");
+            if (notif != null) {
+              const toast = new bootstrap.Toast(notif);
+              toast.show();
+            }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
