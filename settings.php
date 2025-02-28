@@ -164,7 +164,7 @@
           <div class=\"toast-container position-fixed bottom-0 end-0 p-3\">
             <div id=\"toast-notifier\" class=\"toast\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\">
               <div class=\"toast-header\">";
-          if ($_GET["alert"] == "success-upd" || $_GET["alert"] == "success-rm" || $_GET["alert"] == "success-ch-pw") {
+          if ($_GET["alert"] == "success-upd" || $_GET["alert"] == "success-rm" || $_GET["alert"] == "success-ch-pw" || $_GET["alert"] == "mail-send-error") {
             echo "<i class=\"bi bi-check-circle-fill\" style=\"color: var(--bs-teal);\"></i>";
             echo "<strong class=\"me-auto\">Succès de l'opération</strong>";
           } else {
@@ -177,6 +177,10 @@
 
           if ($_GET["alert"] == "success-upd") {
             echo "La mise à jour des information a été effectuée.";
+          } else if ($_GET["alert"] == "success-upd-mail") {
+            echo "Action effectuée. N'oubliez pas de valider votre mail.";
+          } else if ($_GET["alert"] == "mail-send-error") {
+            echo "Echec de l'envoi du mail de vérification.";
           } else if ($_GET["alert"] == "success-rm") {
             echo "La suppression des information a été effectuée.";
           } else if ($_GET["alert"] == "success-ch-pw") {
