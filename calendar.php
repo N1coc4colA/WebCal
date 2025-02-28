@@ -252,7 +252,7 @@
                     <label for="basic-url" class="form-label" for="mod-message">Message</label>
                     <div class="form-text" id="form-message-info">200 caractères maximum.</div>
                     <div class="input-group">
-                      <textarea id="mod-message" class="form-control" aria-label="Message area" maxlength="200"></textarea>
+                      <textarea id="mod-message" name="message" class="form-control" aria-label="Message area" maxlength="200"></textarea>
                     </div>
                   </div>
                   <input id="mod-dateSelect" name="date" type="hidden" value="2025-06-28">

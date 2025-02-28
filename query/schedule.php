@@ -5,7 +5,7 @@
         exit;
     }
 
-    header('Content-Type: application/json');
+    //header('Content-Type: application/json');
 
     $pdo = connectDB();
 
@@ -99,7 +99,7 @@
         $endDate = $_GET['end-date'];
         $endTime = $_GET['end-time'];
 
-        $stmt = $pdo->prepare("SELECT beg_date, beg_time, end_date, end_time FROM AR_DT WHERE (src = ? AND beg_date >= ? AND beg_time >= ? AND end_date <= ? AND end_time <= ?)");
+        $stmt = $pdo->prepare("SELECT id, beg_date, beg_time, end_date, end_time, msg FROM AR_DT WHERE (src = ? AND beg_date >= ? AND beg_time >= ? AND end_date <= ? AND end_time <= ?)");
         $stmt->execute([$_SESSION["id"], $begDate, $begTime, $endDate, $endTime]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
