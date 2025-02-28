@@ -5,7 +5,7 @@
         exit;
     }
 
-    //header('Content-Type: application/json');
+    header('Content-Type: application/json');
 
     $pdo = connectDB();
 
@@ -104,7 +104,7 @@
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         echo json_encode($result);
-    } else if (isset($GET['upcoming']) &&
+    } else if (isset($_GET['upcoming']) &&
         isset($_GET['beg-date']) && validate_date($_GET['beg-date']) &&
         isset($_GET['beg-time']) && validate_time($_GET['beg-time'])) {
 
