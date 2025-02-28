@@ -104,5 +104,17 @@
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         echo json_encode($result);
+    } else if (isset($GET['upcoming']) &&
+        isset($_GET['beg-date']) && validate_date($_GET['beg-date']) &&
+        isset($_GET['beg-time']) && validate_time($_GET['beg-time'])) {
+
+        $begDate = $_GET['beg-date'];
+        $begTime = $_GET['beg-time'];
+
+        $stmt = $pdo->prepare("SELECT id, beg_date, beg_time, end_date, end_time, msg FROM AR_DT WHERE (src = ? AND beg_date >= ? AND beg_time >= ?) LIMIT 5");
+        $stmt->execute([$_SESSION["id"], $begDate, $begTime]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($result);
     }
 ?>
