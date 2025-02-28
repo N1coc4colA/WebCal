@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="styles/global.css">
     </head>
     <body page-name="registration-success">
-        <include href="templates/header.php"></include>
+        <include href="templates/header.html"></include>
         <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
             <section class="container align-items-center justify-content-center text-center">
                 <?php
