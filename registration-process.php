@@ -73,7 +73,7 @@
 
                                             $subject = "Vérification de votre email";
                                             $message = "Bonjour $surname,\n\nCliquez sur <a href=\"$verificationLink\">sur ce lien</a> pour vérifier votre email.\nCordialement,\nL'équipe d'inscription.";
-                                            $plain = "Bonjour $surname,\nUtilisez sur le lien suivant pour vérifier votre email : $verificationLink\n\nCordialement,\nL'équipe d'inscription.";
+                                            $plain = "Bonjour $surname,\nUtilisez le lien suivant pour vérifier votre email : $verificationLink\n\nCordialement,\nL'équipe d'inscription.";
 
                                             if (sendMail($email, $subject, $message, $plain)) {
                                                 echo (file_get_contents("templates/register-mail-success.html"));
