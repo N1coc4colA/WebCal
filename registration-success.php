@@ -30,21 +30,21 @@
 
                         try {
                             $pdo = connectDB();
-    
+
                             // Check if the verification code exists in the PENDING_DT table
-                            $stmt = $pdo->prepare("SELECT email FROM PENDING_DT WHERE validator = ?");
+                            $stmt = $pdo->prepare("SELECT src FROM PENDING_DT WHERE validator = ?");
                             $stmt->execute([$verificationCode]);
-                            $email = $stmt->fetchColumn();
-    
-                            if (!(!$email)) {
+                            $src = $stmt->fetchColumn();
+
+                            if (!(!$src)) {
                                 // Mark the user as verified in the USR_DT table
-                                $stmt = $pdo->prepare("UPDATE USR_DT SET sub = true WHERE email = ?");
-                                $stmt->execute([$email]);
-        
+                                $stmt = $pdo->prepare("UPDATE USR_DT SET sub = true WHERE id = ?");
+                                $stmt->execute([$src]);
+
                                 // Remove the verification code from the PENDING_DT table
-                                $stmt = $pdo->prepare("DELETE FROM PENDING_DT WHERE email = ?");
-                                $stmt->execute([$email]);
-        
+                                $stmt = $pdo->prepare("DELETE FROM PENDING_DT WHERE validator = ?");
+                                $stmt->execute([$verificationCode]);
+
                                 echo (file_get_contents("templates/register-success.html"));
                             } else {
                                 echo (file_get_contents("templates/register-invalid-mail-error.html"));
