@@ -53,7 +53,7 @@ function truncate(s, len)
 function requestEventDeletion(eventId)
 {
     // API endpoint URL
-    const url = "https://localhost/remove-event.php?eid=" + eventId; // Replace with your API endpoint
+    const url = "http://localhost/remove-event.php?eid=" + eventId; // Replace with your API endpoint
 
     // Options for the DELETE request
     const options = {
@@ -64,18 +64,19 @@ function requestEventDeletion(eventId)
     };
 
     // Sending the DELETE request
-    fetch(url, options)
+    return fetch(url, options)
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json(); // If the API returns JSON
+        return ""; // If the API returns JSON
     })
     .then(data => {
-        console.log("Delete successful:", data);
+        return true;
     })
     .catch(error => {
         console.error("Error in DELETE request:", error);
+        return false;
     });
 }
 
@@ -85,7 +86,26 @@ function handleEventRemoval(elem)
         return;
     }
 
-    requestEventDeletion(elem.getAttribute("event-id"));
+    if (!requestEventDeletion(elem.getAttribute("event-id"))) {
+        return;
+    }
+
+    // Remove element from the DOM.
+    elem.parentElement.parentElement.remove();
+
+    // Now use current date to get the day and update the tickets.
+    const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+    const startDay = firstDayOfMonth.getDay();
+
+    // date = i - startDay +1
+    const targetEntryIndex = activeDate.getDate() + startDay -1;
+    const target = document.getElementById("day-ticket-" + targetEntryIndex.toString());
+    const newValue = parseInt(target.innerHTML) -1;
+    target.innerHTML = newValue.toString();
+
+    if (newValue <= 0) {
+        target.classList.add("hidden");
+    }
 }
 
 function buildEventCard(date, beg, end, message, eventId)
