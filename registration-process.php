@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="styles/global.css">
     </head>
     <body page-name="registration-success">
-        <include href="templates/header.php"></include>
+        <include href="templates/header.html"></include>
         <main class="container pt-5 min-vh-100 d-flex justify-content-between flex-column">
             <section class="container align-items-center justify-content-center text-center">
                 <?php
@@ -63,9 +63,8 @@
                                             $verificationLink = "http://localhost/registration-success.php?code=$verificationCode";
 
                                             // Get the user's ID
-                                            $stmt = $pdo->prepare("SELECT id FROM USR_DT WHERE email = :email");
-                                            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-                                            $stmt->execute();
+                                            $stmt = $pdo->prepare("SELECT id FROM USR_DT WHERE email = ?");
+                                            $stmt->execute([$email]);
                                             $user_id = $stmt->fetchColumn();
 
                                             // Store verification code
@@ -73,15 +72,14 @@
                                             $stmt->execute([$date, $time, $verificationCode, $user_id]);
 
                                             $subject = "Vérification de votre email";
-                                            $message = "Bonjour $surname,\n\nCliquez sur le lien suivant pour vérifier votre email :\n$verificationLink\n\nCordialement,\nL'équipe d'inscription.";
-                                            $headers = "From: noreply@localhost" . "\r\n";
+                                            $message = "Bonjour $surname,\n\nCliquez sur <a href=\"$verificationLink\">sur ce lien</a> pour vérifier votre email.\nCordialement,\nL'équipe d'inscription.";
+                                            $plain = "Bonjour $surname,\nUtilisez sur le lien suivant pour vérifier votre email : $verificationLink\n\nCordialement,\nL'équipe d'inscription.";
 
-                                            // [TODO] See how to mail
-                                            //if (mail($email, $subject, $message, $headers)) {
+                                            if (sendMail($email, $subject, $message, $plain)) {
                                                 echo (file_get_contents("templates/register-mail-success.html"));
-                                            /*} else {
+                                            } else {
                                                 echo (file_get_contents("templates/register-mail-error.html"));
-                                            }*/
+                                            }
                                         } else {
                                             echo (file_get_contents("templates/register-mail-success.html"));
                                         }
