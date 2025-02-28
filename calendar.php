@@ -58,151 +58,151 @@
               <div class="d-flex justify-content-between">
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between">
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
               </div>
               <div class="d-flex justify-content-between">
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between">
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
-                </div>
-                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
-                  <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
               </div>
               <div class="d-flex justify-content-between">
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
                 <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
                   <p class="day-text">0</p>
-                  <p class="day-tickets text-center">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
+                </div>
+                <div class="day-entry split7 d-flex flex-column justify-content-between align-items-baseline">
+                  <p class="day-text">0</p>
+                  <p class="day-tickets text-center hidden">0</p>
                 </div>
               </div>
             </div>
