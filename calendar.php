@@ -209,22 +209,9 @@
           </div>
           <div class="col-12 col-lg-4">
             <h2 class="upcoming-header">Événements à venir:</h2>
-            <div class="upcoming-body">
-              <div class="d-flex flex-column">
-                <div class="upcoming-entry d-flex flex-row">
-                  <div class="d-flex flex-column mrg-l-5">
-                    <p class="rdv-month text-center m-0 text-mutted">Novembre</p>
-                    <p class="rdv-date text-center m-0">5</p>
-                    <p class="rdv-time text-center m-0">12:00 - 13:00</p>
-                  </div>
-                  <div class="upcoming-sep"></div>
-                  <div class="entry-content">
-                    <p class="rdv-title">Bonjour !</p>
-                  </div>
-                  <i class="bi bi-trash3-fill event-rm-btn"></i>
-                </div>
-              </div>
-            </div>
+            <div id="upcoming-body" class="upcoming-body hidden-full"></div>
+            <p id="upcoming-body-noEvent" class="hidden-full">Rien de disponible :/</p>
+            <p id="upcoming-body-evResponseError" class="hidden-full">Une erreur est survenue :/</p>
           </div>
         </div>
         <div class="modal fade" id="mod-reservation-popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mod-resTitle" aria-hidden="true">

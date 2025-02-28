@@ -214,6 +214,41 @@ function setupCalendar()
             handleEventRemoval(event.target);
         }
     });
+
+    const now = new Date();
+    const dateString = formatDate(now);
+    const hours = String(now.getHours()).padStart(2, '0'); // Ensure 2 digits
+    const minutes = String(now.getMinutes()).padStart(2, '0'); // Ensure 2 digits
+    const seconds = String(now.getSeconds()).padStart(2, '0'); // Ensure 2 digits
+
+    const timeString = hours + ":" + minutes + ":" + seconds;
+    const path = "http://localhost/query/schedule.php?upcoming&beg-date=" + dateString + "&beg-time=" + timeString;
+    fetch(path).then(response => {
+        if (!response.ok) {
+            document.getElementById("mod-evResponseError").classList.remove("hidden-full");
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return response.json();
+    })
+    .then(data => {
+        let htmlResult = "";
+        for (let i = 0; i < data.length; ++i) {
+            htmlResult += buildEventCard(new Date(Date.parse(data[i]["beg_date"])), data[i]["beg_time"], data[i]["end_time"], truncate(data[i]["msg"], 50), data[i]["id"]);
+        }
+
+        document.getElementById("upcoming-body").innerHTML = htmlResult;
+
+        if (data.length == 0) {
+            document.getElementById("upcoming-body-noEvent").classList.remove("hidden-full");
+        } else {
+            document.getElementById("upcoming-body").classList.remove("hidden-full");
+        }
+    })
+    .catch(error => {
+        document.getElementById("upcoming-body-evResponseError").classList.remove("hidden-full");
+        console.error('Error fetching data:', error);
+    });
 }
 
 function setupMonth(date)
