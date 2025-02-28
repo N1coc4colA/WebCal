@@ -40,26 +40,39 @@
       exit;
     }
 
+    // Get previous mail
+    $stmt = $pdo->prepare("SELECT email FROM USR_DT WHERE (id=?)");
+    $stmt->execute([$_SESSION["id"]]);
+    $prevMail = $stmt->fetchColumn();
+
     // Update information
     // Do not forget to invalidate user verification.
     $stmt = $pdo->prepare("UPDATE USR_DT SET name=?, surname=?, birthdate=?, address=?, phone=?, email=?, sub=? WHERE (id=?)");
     $stmt->execute([$name, $surname, $birthdate, $address, $phone, $email, 0, $_SESSION["id"]]);
 
-    // [TODO] Send verification mail
-    // Generate entry first
-    $date = date('Y-m-d');
-    $time = date('H:i:s');
+    if ($email != $prevMail) {
+      // Generate entry first
+      $date = date('Y-m-d');
+      $time = date('H:i:s');
 
-    $verificationCode = mb_strimwidth(bin2hex(random_bytes(20)), 0, 30, "");
-    $verificationLink = "http://localhost/registration-success.php?code=$verificationCode";
+      $verificationCode = mb_strimwidth(bin2hex(random_bytes(20)), 0, 30, "");
+      $verificationLink = "http://localhost/registration-success.php?code=$verificationCode";
 
-    // Store verification code
-    $stmt = $pdo->prepare("INSERT INTO PENDING_DT (sub_date, sub_time, validator, src) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$date, $time, $verificationCode, $_SESSION["id"]]);
+      // Store verification code
+      $stmt = $pdo->prepare("INSERT INTO PENDING_DT (sub_date, sub_time, validator, src) VALUES (?, ?, ?, ?)");
+      $stmt->execute([$date, $time, $verificationCode, $_SESSION["id"]]);
 
-    $subject = "Vérification de votre email";
-    $message = "Bonjour $surname,\n\nCliquez sur le lien suivant pour vérifier votre email :\n$verificationLink\n\nCordialement,\nL'équipe d'inscription.";
-    $headers = "From: noreply@localhost" . "\r\n";
+      $subject = "Vérification de votre email";
+      $message = "Bonjour $surname,\n\nCliquez sur <a href=\"$verificationLink\">sur ce lien</a> pour vérifier votre nouveau mail.\nCordialement,\nL'équipe gestion des données.";
+      $plain = "Bonjour $surname,\nUtilisez le lien suivant pour vérifier votre nouveau mail : $verificationLink\n\nCordialement,\nL'équipe gestion des données.";
+
+      if (!sendMail($email, $subject, $message, $plain)) {
+        header("Location: error.php?error=mail-send-error");
+        exit;
+      }
+
+      header("Location: settings.php#edit?alert=success-upd-mail");
+    }
   } catch (PDOException $e) {
     header("Location: error.php?error=sql-error");
     exit;
