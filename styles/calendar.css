@@ -151,7 +151,6 @@
 
 .upcoming-body
 {
-    min-height: 70vh;
     max-height: 70vh;
     overflow: auto;
 }
@@ -179,7 +178,7 @@
     width: calc(calc(100%) - 141px);
 }
 
-.event-rm-btn
+.event-rm-btn, .uc-event-rm-btn
 {
     height: 24px;
     width: 24px;
@@ -187,12 +186,12 @@
     border-radius: 200px;
 }
 
-.event-rm-btn:hover
+.event-rm-btn:hover, .uc-event-rm-btn:hover
 {
     background-color: #d9d9d9;
 }
 
-.event-rm-btn:active
+.event-rm-btn:active, .uc-event-rm-btn:active
 {
     background-color: red;
     color: white;
@@ -248,6 +247,7 @@
 .hidden-full
 {
     visibility: hidden;
+    min-height: 0;
     height: 0;
     margin: 0;
     padding: 0;

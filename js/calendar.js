@@ -80,6 +80,44 @@ function requestEventDeletion(eventId)
     });
 }
 
+function setupUpcomingEvents()
+{
+    const now = new Date();
+    const dateString = formatDate(now);
+    const hours = String(now.getHours()).padStart(2, '0'); // Ensure 2 digits
+    const minutes = String(now.getMinutes()).padStart(2, '0'); // Ensure 2 digits
+    const seconds = String(now.getSeconds()).padStart(2, '0'); // Ensure 2 digits
+
+    const timeString = hours + ":" + minutes + ":" + seconds;
+    const path = "http://localhost/query/schedule.php?upcoming&beg-date=" + dateString + "&beg-time=" + timeString;
+    fetch(path).then(response => {
+        if (!response.ok) {
+            document.getElementById("mod-evResponseError").classList.remove("hidden-full");
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return response.json();
+    })
+    .then(data => {
+        let htmlResult = "";
+        for (let i = 0; i < data.length; ++i) {
+            htmlResult += buildEventCard(new Date(Date.parse(data[i]["beg_date"])), data[i]["beg_time"], data[i]["end_time"], truncate(data[i]["msg"], 50), data[i]["id"], true);
+        }
+
+        document.getElementById("upcoming-body").innerHTML = htmlResult;
+
+        if (data.length == 0) {
+            document.getElementById("upcoming-body-noEvent").classList.remove("hidden-full");
+        } else {
+            document.getElementById("upcoming-body").classList.remove("hidden-full");
+        }
+    })
+    .catch(error => {
+        document.getElementById("upcoming-body-evResponseError").classList.remove("hidden-full");
+        console.error('Error fetching data:', error);
+    });
+}
+
 function handleEventRemoval(elem)
 {
     if (!elem.hasAttribute("event-id")) {
@@ -92,6 +130,10 @@ function handleEventRemoval(elem)
 
     // Remove element from the DOM.
     elem.parentElement.parentElement.remove();
+
+    if (!isSameYearMonth(new Date(), selectedDate)) {
+        return;
+    }
 
     // Now use current date to get the day and update the tickets.
     const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
@@ -106,9 +148,12 @@ function handleEventRemoval(elem)
     if (newValue <= 0) {
         target.classList.add("hidden");
     }
+
+    // Reload items in upcoming events if dates correspond.
+    setupUpcomingEvents();
 }
 
-function buildEventCard(date, beg, end, message, eventId)
+function buildEventCard(date, beg, end, message, eventId, isUpcoming = false)
 {
     const monthName = monthNames[date.getMonth()];
     const day = date.getDate().toString();
@@ -136,9 +181,15 @@ function buildEventCard(date, beg, end, message, eventId)
                     <p class=\"rdv-title\">";
     code +=         message;
     code += "       </p> \
-                </div> \
-                <i class=\"bi bi-trash3-fill event-rm-btn\" event-id=\"" + eventId + "\"></i> \
-            </div> \
+                </div>";
+    if (isUpcoming) {
+        code += "   <i class=\"bi bi-trash3-fill uc-event-rm-btn\" event-id=\"";
+    } else {
+        code += "   <i class=\"bi bi-trash3-fill event-rm-btn\" event-id=\"";
+    }
+    code +=     eventId;
+    code +=     "\"></i>";
+    code += "</div> \
          </div>";
 
     return code;
@@ -210,45 +261,14 @@ function setupCalendar()
 
     document.body.addEventListener('click', function(event) {
         // Check if the clicked element has the class 'rm'
-        if (event.target.classList.contains('event-rm-btn')) {
+        if (event.target.classList.contains('event-rm-btn') ||
+            event.target.classList.contains('uc-event-rm-btn')) {
+
             handleEventRemoval(event.target);
         }
     });
 
-    const now = new Date();
-    const dateString = formatDate(now);
-    const hours = String(now.getHours()).padStart(2, '0'); // Ensure 2 digits
-    const minutes = String(now.getMinutes()).padStart(2, '0'); // Ensure 2 digits
-    const seconds = String(now.getSeconds()).padStart(2, '0'); // Ensure 2 digits
-
-    const timeString = hours + ":" + minutes + ":" + seconds;
-    const path = "http://localhost/query/schedule.php?upcoming&beg-date=" + dateString + "&beg-time=" + timeString;
-    fetch(path).then(response => {
-        if (!response.ok) {
-            document.getElementById("mod-evResponseError").classList.remove("hidden-full");
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        return response.json();
-    })
-    .then(data => {
-        let htmlResult = "";
-        for (let i = 0; i < data.length; ++i) {
-            htmlResult += buildEventCard(new Date(Date.parse(data[i]["beg_date"])), data[i]["beg_time"], data[i]["end_time"], truncate(data[i]["msg"], 50), data[i]["id"]);
-        }
-
-        document.getElementById("upcoming-body").innerHTML = htmlResult;
-
-        if (data.length == 0) {
-            document.getElementById("upcoming-body-noEvent").classList.remove("hidden-full");
-        } else {
-            document.getElementById("upcoming-body").classList.remove("hidden-full");
-        }
-    })
-    .catch(error => {
-        document.getElementById("upcoming-body-evResponseError").classList.remove("hidden-full");
-        console.error('Error fetching data:', error);
-    });
+    setupUpcomingEvents();
 }
 
 function setupMonth(date)
