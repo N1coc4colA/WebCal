@@ -13,7 +13,6 @@ const eventsModal = new bootstrap.Modal(document.getElementById("mod-events-popu
 
 const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
-
 function daysInMonth(date)
 {
     const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
