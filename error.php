@@ -24,7 +24,7 @@
             <section class="container align-items-center justify-content-center text-center">
                 <?php
                     if (isset($_GET['error'])) {
-                        echo file_get_contents("templates/" . str_replace("/", "", $_GET["error"]) + ".html");
+                        echo file_get_contents("templates/" . str_replace("/", "", $_GET["error"]) . ".html");
                     } else {
                         echo file_get_contents("templates/register-error.html");
                     }
