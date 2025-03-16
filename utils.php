@@ -1,4 +1,6 @@
 <?php
+  include "db.php";
+
   function generateToken() {
     return mb_strimwidth(htmlspecialchars(trim((string) bin2hex(random_bytes(32)))), 0, 32, "");
   }
@@ -10,14 +12,7 @@
   }
 
   function connectDB() {
-    $dsn = 'mysql:host=localhost;dbname=webcal;charset=utf8';
-    $username = 'webcal-user';
-    $password_db = 'webcal-pw';
-
-    $pdo = new PDO($dsn, $username, $password_db);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    return $pdo;
+    return DB::getInstance();
   }
 
   function san_pw($pw) {
@@ -61,7 +56,7 @@
   }
 
   function validate_tok($tokName) {
-    return isset($_SESSION[$tokName]) && !hash_equals($_SESSION[$tokName], mb_strimwidth(htmlspecialchars(trim($_POST[$tokName])), 0, 32, ""));
+    return isset($_SESSION[$tokName]) && isset($_POST["token"]) && hash_equals($_SESSION[$tokName], mb_strimwidth(htmlspecialchars(trim($_POST["token"])), 0, 32, ""));
   }
 
   function isWeekend($date) {
@@ -94,12 +89,12 @@
     try {
       //Server settings
       $mail->isSMTP();                                    //Send using SMTP
-      $mail->Host       = 'smtp.gmail.com';               //Set the SMTP server to send through
-      $mail->SMTPAuth   = true;                           //Enable SMTP authentication
-      $mail->Username   = 'webreservcall@gmail.com';      //SMTP username
-      $mail->Password   = 'axsj xgmu xpib isoo';          //SMTP password
+      $mail->Host       = getenv("SMTP_HOST");            //Set the SMTP server to send through
+      $mail->SMTPAuth   = (bool)getenv("SMTP_AUTH");      //Enable SMTP authentication
+      $mail->Username   = getenv("SMTP_USERNAME");        //SMTP username
+      $mail->Password   = getenv("SMTP_PASSWORD");        //SMTP password
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; //Enable implicit TLS encryption
-      $mail->Port       = 587;                            //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+      $mail->Port       = getenv("SMTP_PORT");            //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
       $mail->SMTPOptions = array(
           "ssl" => array(
@@ -110,11 +105,11 @@
       );
 
       //Recipients
-      $mail->setFrom("webreservcall@gmail.com", "WebCal");
+      $mail->setFrom(getenv("SMTP_USERNAME"), "WebCal");
       $mail->addAddress($target);
 
       //Content
-      $mail->isHTML(true);                                //Set email format to HTML
+      $mail->isHTML(true);         //Set email format to HTML
       $mail->Subject = $subject;
       $mail->Body    = $message;
       $mail->AltBody = $plain;

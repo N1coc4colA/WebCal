@@ -1,8 +1,10 @@
 <?php
-  if (isset($_SESSION["id"]) && $_SESSION["id"] == true) {
-    header("Location: calendar.php");
-    exit;
-  }
+    session_start();
+
+    if (isset($_SESSION["id"]) && $_SESSION["id"] == true) {
+        header("Location: calendar.php");
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">

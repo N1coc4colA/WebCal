@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!doctype html>
 <html lang="fr">
   <head>
@@ -20,8 +23,6 @@
   </head>
   <body page-name="index">
     <?php
-        session_start();
-
         $result = "";
         if (isset($_SESSION["id"])) {
             echo "<include href=\"templates/header-connected.html\"></include>";
