@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+    env_file:
+      - .env
+
+  db:
+    image: mariadb:10.11
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
