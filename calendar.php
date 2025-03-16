@@ -243,7 +243,7 @@
                     </div>
                   </div>
                   <input id="mod-dateSelect" name="date" type="hidden" value="2025-06-28">
-                  <input name="token" type="hidden" value="<?php echo buildToken('slot-res-token'); ?>">
+                  <input name="token" type="hidden" value="<?php echo buildToken("slot-res-token"); ?>">
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <button type="submit" class="btn btn-success">Réserver</button>
