@@ -1,18 +1,36 @@
 services:
-  web:
+  webcal:
     build: .
     ports:
       - "80:80"
     depends_on:
-      - db
+      - webcal-db
     environment:
-      - MYSQL_HOST=db
-    env_file:
-      - .env
+      - MYSQL_HOST=webcal-db
+      - MYSQL_USER=webcal-user
+      - MYSQL_PASSWORD=webcal-password
+      - MYSQL_DATABASE=webcal
+      - MYSQL_ROOT_PASSWORD=root-password
+      - MARIADB_AUTO_UPGRADE=1
+      - SMTP_HOST=smtp.server.somewhere
+      - SMTP_PORT=my-port
+      - SMTP_AUTH=true
+      - SMTP_USERNAME=address@some.where
+      - SMTP_PASSWORD=address-password
 
-  db:
+  webcal-db:
     image: mariadb:10.11
-    env_file:
-      - .env
     ports:
       - "3306:3306"
+    environment:
+      - MYSQL_HOST=webcal-db
+      - MYSQL_USER=webcal-user
+      - MYSQL_PASSWORD=webcal-password
+      - MYSQL_DATABASE=webcal
+      - MYSQL_ROOT_PASSWORD=root-password
+      - MARIADB_AUTO_UPGRADE=1
+      - SMTP_HOST=smtp.server.somewhere
+      - SMTP_PORT=my-port
+      - SMTP_AUTH=true
+      - SMTP_USERNAME=address@some.where
+      - SMTP_PASSWORD=address-password

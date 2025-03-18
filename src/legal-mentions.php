@@ -34,23 +34,23 @@
 <h2>Mentions Légales</h2>
 
 <h5>1. Éditeur du Site</h5>
-<p>Le site WebCal (ci-après dénommé "le Site") est édité par :</p>
-<p>Nom de l’entreprise/personne physique : Quel Qu'un</p>
-<p>Email : myemail@some.where</p>
+<p>Le site WebCal (ci-après dénommé "le Site") est édité par : BADIN Nicolas</p>
+<p>Nom de l’entreprise/personne physique : BADIN Nicolas</p>
+<p>Email : webcal-contact.popsicle423@passmail.net</p>
 
 <h5>2. Propriété Intellectuelle</h5>
 <p>Tous les contenus présents sur le Site (textes, images, logos, vidéos, etc.) sont protégés par les lois en vigueur sur la propriété intellectuelle. Toute reproduction, représentation, modification ou exploitation totale ou partielle de ces éléments sans autorisation préalable est strictement interdite.
 
 <h5>3. Données Personnelles</h5>
 <p>Le traitement des données personnelles des utilisateurs respecte les dispositions du Règlement Général sur la Protection des Données (RGPD) et de la législation française en vigueur.</p>
-<p>Responsable du traitement des données : Quel Qu'un</p>
+<p>Responsable du traitement des données : BADIN Nicolas</p>
 <p>Les données collectées via le Site sont utilisées pour :</p>
 
     <p>La gestion des comptes utilisateurs.</p>
-    <p>La prise et la gestion des rendez-vous.</p>
+    <p>La prise et la gestion des rendez-vous (fictifs).</p>
     <p>L’envoi de communications liées aux services proposés.</p>
 
-<p>Les utilisateurs disposent d’un droit d’accès, de rectification, de suppression et de portabilité de leurs données, ainsi que d’un droit d’opposition ou de limitation au traitement. Ces droits peuvent être exercés en écrivant à : [Votre email]</p>
+<p>Les utilisateurs disposent d’un droit d’accès, de rectification, de suppression et de portabilité de leurs données, ainsi que d’un droit d’opposition ou de limitation au traitement. Ces droits peuvent être exercés en écrivant à : webcal-contact.popsicle423@passmail.net</p>
 
 <h5>6. Responsabilité</h5>
 <p>Le Site met tout en œuvre pour fournir des informations exactes et à jour, mais ne saurait être tenu responsable d’erreurs ou d’omissions.</p>
