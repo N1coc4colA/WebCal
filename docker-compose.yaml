@@ -16,7 +16,9 @@ services:
       - SMTP_PORT=my-port
       - SMTP_AUTH=true
       - SMTP_USERNAME=address@some.where
+      - SMTP_MAIL_FROM=address@some.where
       - SMTP_PASSWORD=address-password
+      - HOST_NAME=my.server.here
 
   webcal-db:
     image: mariadb:10.11
@@ -29,8 +31,4 @@ services:
       - MYSQL_DATABASE=webcal
       - MYSQL_ROOT_PASSWORD=root-password
       - MARIADB_AUTO_UPGRADE=1
-      - SMTP_HOST=smtp.server.somewhere
-      - SMTP_PORT=my-port
-      - SMTP_AUTH=true
-      - SMTP_USERNAME=address@some.where
-      - SMTP_PASSWORD=address-password
+

@@ -52,7 +52,7 @@ function truncate(s, len)
 function requestEventDeletion(eventId)
 {
     // API endpoint URL
-    const url = "http://localhost/remove-event.php?eid=" + eventId; // Replace with your API endpoint
+    const url = "remove-event.php?eid=" + eventId; // Replace with your API endpoint
 
     // Options for the DELETE request
     const options = {
@@ -88,7 +88,7 @@ function setupUpcomingEvents()
     const seconds = String(now.getSeconds()).padStart(2, '0'); // Ensure 2 digits
 
     const timeString = hours + ":" + minutes + ":" + seconds;
-    const path = "http://localhost/query/schedule.php?upcoming&beg-date=" + dateString + "&beg-time=" + timeString;
+    const path = "query/schedule.php?upcoming&beg-date=" + dateString + "&beg-time=" + timeString;
     fetch(path).then(response => {
         if (!response.ok) {
             document.getElementById("mod-evResponseError").classList.remove("hidden-full");
@@ -330,7 +330,7 @@ function setupMonth(date)
     const endDateString = formatDate(endDate);
 
     // Get reserved dates
-    const path = "http://localhost/query/schedule.php?user&beg-date=" + begDateString + "&end-date=" + endDateString + "&beg-time=00:00:00&end-time=23:59:59";
+    const path = "query/schedule.php?user&beg-date=" + begDateString + "&end-date=" + endDateString + "&beg-time=00:00:00&end-time=23:59:59";
     fetch(path).then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -389,7 +389,7 @@ function popupReservationModal()
     }
 
     // Get reserved dates
-    const path = "http://localhost/query/schedule.php?available&beg-date=" + dateString + "&end-date=" + dateString + "&beg-time=00:00:00&end-time=23:59:59";
+    const path = "query/schedule.php?available&beg-date=" + dateString + "&end-date=" + dateString + "&beg-time=00:00:00&end-time=23:59:59";
     fetch(path).then(response => {
         if (!response.ok) {
             document.getElementById("mod-resResponseError").classList.remove("hidden-full");
@@ -438,7 +438,7 @@ function popupEventsModal()
     }
 
     // Get reserved dates
-    const path = "http://localhost/query/schedule.php?user&beg-date=" + dateString + "&end-date=" + dateString + "&beg-time=00:00:00&end-time=23:59:59";
+    const path = "query/schedule.php?user&beg-date=" + dateString + "&end-date=" + dateString + "&beg-time=00:00:00&end-time=23:59:59";
     fetch(path).then(response => {
         if (!response.ok) {
             document.getElementById("mod-evResponseError").classList.remove("hidden-full");

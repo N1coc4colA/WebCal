@@ -17,6 +17,8 @@ RUN chmod -R 755 /var/www/html
 
 # Expose port 80
 EXPOSE 80
+# PHPMailer
+EXPOSE 587
 
 # Apache is already configured as the default entrypoint in this image
 ENTRYPOINT ["/var/www/html/db/db_setup.sh"]

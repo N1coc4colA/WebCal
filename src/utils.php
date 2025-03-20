@@ -105,7 +105,7 @@
       );
 
       //Recipients
-      $mail->setFrom(getenv("SMTP_USERNAME"), "WebCal");
+      $mail->setFrom(getenv("SMTP_MAIL_FROM"), "WebCal");
       $mail->addAddress($target);
 
       //Content
@@ -114,7 +114,7 @@
       $mail->Body    = $message;
       $mail->AltBody = $plain;
 
-      $mail->send();
+      return $mail->send();
     } catch (Exception $e) {
       return false;
     }

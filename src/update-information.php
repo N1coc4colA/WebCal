@@ -56,7 +56,7 @@
       $time = date('H:i:s');
 
       $verificationCode = mb_strimwidth(bin2hex(random_bytes(20)), 0, 30, "");
-      $verificationLink = "http://localhost/registration-success.php?code=$verificationCode";
+      $verificationLink = "https://" . getenv("HOST_NAME") . "/registration-success.php?code=$verificationCode";
 
       // Store verification code
       $stmt = $pdo->prepare("INSERT INTO PENDING_DT (sub_date, sub_time, validator, src) VALUES (?, ?, ?, ?)");

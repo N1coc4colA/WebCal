@@ -60,7 +60,7 @@
                                             $time = date('H:i:s');
 
                                             $verificationCode = mb_strimwidth(bin2hex(random_bytes(20)), 0, 30, "");
-                                            $verificationLink = "http://localhost/registration-success.php?code=$verificationCode";
+                                            $verificationLink = "https://" . getenv("HOST_NAME") . "/registration-success.php?code=" . $verificationCode;
 
                                             // Get the user's ID
                                             $stmt = $pdo->prepare("SELECT id FROM USR_DT WHERE email = ?");
@@ -72,16 +72,19 @@
                                             $stmt->execute([$date, $time, $verificationCode, $user_id]);
 
                                             $subject = "Vérification de votre email";
-                                            $message = "Bonjour $surname,\n\nCliquez sur <a href=\"$verificationLink\">sur ce lien</a> pour vérifier votre email.\nCordialement,\nL'équipe d'inscription.";
-                                            $plain = "Bonjour $surname,\nUtilisez le lien suivant pour vérifier votre email : $verificationLink\n\nCordialement,\nL'équipe d'inscription.";
+                                            $message = "Bonjour " . $surname . ",\n\nCliquez sur <a href=\"" . $verificationLink . "\">sur ce lien</a> pour vérifier votre email.\nCordialement,\nL'équipe d'inscription.";
+                                            $plain = "Bonjour " . $surname . ",\nUtilisez le lien suivant pour vérifier votre email : " . $verificationLink . "\n\nCordialement,\nL'équipe d'inscription.";
 
                                             if (sendMail($email, $subject, $message, $plain)) {
+                                                error_log("Registered user: " . $email, 0);
                                                 echo (file_get_contents("templates/register-mail-success.html"));
+                                                echo "<p>Mail: " . $email . "</p>";
                                             } else {
                                                 echo (file_get_contents("templates/register-mail-error.html"));
                                             }
                                         } else {
                                             echo (file_get_contents("templates/register-mail-success.html"));
+                                            echo "<p>Registered !</p>";
                                         }
                                     } catch (PDOException $e) {
                                         echo (file_get_contents("templates/register-error.html"));
