@@ -21,7 +21,7 @@ services:
       - HOST_NAME=my.server.here
 
   webcal-db:
-    image: mariadb:10.11
+    image: mariadb:latest
     ports:
       - "3306:3306"
     environment:
@@ -31,3 +31,8 @@ services:
       - MYSQL_DATABASE=webcal
       - MYSQL_ROOT_PASSWORD=root-password
       - MARIADB_AUTO_UPGRADE=1
+    volumes:
+      - webcal-db-data:/var/lib/mysql
+
+volumes:
+  webcal-db-data:
