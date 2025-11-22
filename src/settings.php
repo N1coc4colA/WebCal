@@ -208,25 +208,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="js/toaster.js"></script>
     <script>
-            if (window.location.hash) {
-              console.log("-" + window.location.hash + "-");
+            var found = false;
 
-              if (window.location.hash === "#edit") {
-                document.getElementById("edit-tab").classList.toggle("active");
-                document.getElementById("edit").classList.toggle("active");
-              } else if (window.location.hash === "#pw") {
-                document.getElementById("pw-tab").classList.toggle("active");
-                document.getElementById("pw").classList.toggle("active");
-              } else if (window.location.hash === "#suppr") {
-                document.getElementById("suppr-tab").classList.toggle("active");
-                document.getElementById("suppr").classList.toggle("active");
-              } else {
-                document.getElementById("edit-tab").classList.toggle("active");
-                document.getElementById("edit").classList.toggle("active");
+            if (window.location.hash) {
+              for (const tname of ["edit", "pw", "suppr"]) {
+                if (window.location.hash === "#" + tname) {
+                  found = true;
+                  document.getElementById(tname + "-tab").classList.toggle("active");
+                  document.getElementById(tname).classList.toggle("active");
+                  break;
+                }
               }
-            } else {
-                document.getElementById("edit-tab").classList.toggle("active");
-                document.getElementById("edit").classList.toggle("active");
+            }
+
+            if (!found) {
+              document.getElementById("edit-tab").classList.toggle("active");
+              document.getElementById("edit").classList.toggle("active");
             }
 
             function validateForm() {
@@ -241,38 +238,24 @@
                 return true;
             }
 
-            const nPasswordToggleConf = document.getElementById('toggleNPasswordConf');
-            const nPasswordConf = document.getElementById('nPasswordConf');
-            nPasswordToggleConf.addEventListener('click', () => {
-                // Toggle the type attribute using
-                // getAttribure() method
-                const type = nPasswordConf.getAttribute('type') === 'password' ? 'text' : 'password';
-                nPasswordConf.setAttribute('type', type);
-                // Toggle the eye and bi-eye icon
-                nPasswordToggleConf.classList.toggle('bi-eye');
-            });
 
-            const passwordToggle = document.getElementById('togglePassword');
-            const password = document.getElementById('password');
-            passwordToggle.addEventListener('click', () => {
-                // Toggle the type attribute using
-                // getAttribure() method
-                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                password.setAttribute('type', type);
-                // Toggle the eye and bi-eye icon
-                passwordToggle.classList.toggle('bi-eye');
-            });
+              for (const couple of [
+                ["toggleNPasswordConf", "nPasswordConf"],
+                ["togglePassword", "password"],
+                ["toggleNPassword", "nPassword"]])
+              {
 
-            const nPasswordToggle = document.getElementById('toggleNPassword');
-            const nPassword = document.getElementById('nPassword');
-            nPasswordToggle.addEventListener('click', () => {
-                // Toggle the type attribute using
-                // getAttribure() method
-                const type = nPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-                nPassword.setAttribute('type', type);
-                // Toggle the eye and bi-eye icon
-                nPasswordToggle.classList.toggle('bi-eye');
-            });
+                const btn = document.getElementById(couple[0]);
+                const entry = document.getElementById(couple[1]);
+                btn.addEventListener('click', () => {
+                    // Toggle the type attribute using
+                    // getAttribure() method
+                    const type = entry.getAttribute('type') === 'password' ? 'text' : 'password';
+                    entry.setAttribute('type', type);
+                    // Toggle the eye and bi-eye icon
+                    btn.classList.toggle('bi-eye');
+                });
+              }
     </script>
   </body>
 </html>

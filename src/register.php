@@ -87,27 +87,18 @@
                 return true;
             }
 
-            const passwordToggle = document.querySelector('#togglePassword');
-            const password = document.querySelector('#password');
-            passwordToggle.addEventListener('click', () => {
-                // Toggle the type attribute using
-                // getAttribure() method
-                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                password.setAttribute('type', type);
-                // Toggle the eye and bi-eye icon
-                passwordToggle.classList.toggle('bi-eye');
-            });
-
-            const passwordToggleConf = document.querySelector('#togglePasswordConf');
-            const passwordConf = document.querySelector('#passwordConf');
-            passwordToggleConf.addEventListener('click', () => {
-                // Toggle the type attribute using
-                // getAttribure() method
-                const type = passwordConf.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordConf.setAttribute('type', type);
-                // Toggle the eye and bi-eye icon
-                passwordToggleConf.classList.toggle('bi-eye');
-            });
+            for (const couple of [["togglePassword", "password"], ["togglePasswordConf", "passwordConf"]]) {
+                const btn = document.querySelector('#' + couple[0]);
+                const entry = document.querySelector('#' + couple[1]);
+                btn.addEventListener('click', () => {
+                    // Toggle the type attribute using
+                    // getAttribure() method
+                    const type = entry.getAttribute('type') === 'password' ? 'text' : 'password';
+                    entry.setAttribute('type', type);
+                    // Toggle the eye and bi-eye icon
+                    btn.classList.toggle('bi-eye');
+                });
+            }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
