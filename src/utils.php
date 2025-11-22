@@ -2,7 +2,7 @@
   include "db.php";
 
   function generateToken() {
-    return mb_strimwidth(htmlspecialchars(trim((string) bin2hex(random_bytes(32)))), 0, 32, "");
+    return mb_strimwidth(trim(bin2hex(random_bytes(32))), 0, 32, "");
   }
 
   function buildToken($tokName) {
@@ -16,7 +16,7 @@
   }
 
   function san_pw($pw) {
-    return mb_strimwidth(htmlspecialchars($pw), 0, 30, "");
+    return (string) mb_strimwidth(((string)$pw), 0, 30, "");
   }
 
   function san_phone($phone) {
@@ -27,8 +27,12 @@
     return san_string($mail, 30);
   }
 
+  function html_san($str) {
+    return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5);
+  }
+
   function san_string($str, $len) {
-    return (string) mb_strimwidth(htmlspecialchars(trim($str)), 0, $len, "");
+    return (string) mb_strimwidth(trim($str), 0, $len, "");
   }
 
   function validate_mail($mail) {
@@ -56,7 +60,7 @@
   }
 
   function validate_tok($tokName) {
-    return isset($_SESSION[$tokName]) && isset($_POST["token"]) && hash_equals($_SESSION[$tokName], mb_strimwidth(htmlspecialchars(trim($_POST["token"])), 0, 32, ""));
+    return isset($_SESSION[$tokName]) && isset($_POST["token"]) && hash_equals($_SESSION[$tokName], mb_strimwidth(trim($_POST["token"]), 0, 32, ""));
   }
 
   function isWeekend($date) {

@@ -26,7 +26,7 @@
                     include "utils.php";
 
                     if (isset($_GET['code'])) {
-                        $verificationCode = htmlspecialchars(trim($_GET['code']));
+                        $verificationCode = trim($_GET['code']);
 
                         try {
                             $pdo = connectDB();

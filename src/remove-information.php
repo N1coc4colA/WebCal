@@ -16,9 +16,12 @@
         exit;
       }
 
-      $stmt = $pdo->prepare("SELECT mail FROM USR_DT WHERE id=?");
+      $stmt = $pdo->prepare("SELECT email, surname FROM USR_DT WHERE id=?");
       $stmt->execute([$_SESSION["id"]]);
-      $mail = stmt->fetch()["mail"];
+
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $email = $row["email"];
+      $surname = $row["surname"];
 
       // Remove all indirect data
       // Remove informations about rendez-vous taken by the user.
@@ -36,8 +39,9 @@
       $stmt->execute([$_SESSION["id"]]);
 
       $subject = "Vérification de votre email";
-      $message = "Bonjour $surname,\nCe mail vous est envoyé pour confirmer que votre compte a bien été supprimé.\nCordialement,\nL'équipe gestion des données.";
-      sendMail($mail, $subject, $message, $message);
+      $plain = "Bonjour $surname,\nCe mail vous est envoyé pour confirmer que votre compte a bien été supprimé.\nCordialement,\nL'équipe gestion des données.";
+      $message = "Bonjour " . html_san($surname) . ",\nCe mail vous est envoyé pour confirmer que votre compte a bien été supprimé.\nCordialement,\nL'équipe gestion des données.";
+      sendMail($email, $subject, $message, $plain);
 
       session_destroy();
       header("Location: index.php");

@@ -56,14 +56,14 @@
       $time = date('H:i:s');
 
       $verificationCode = mb_strimwidth(bin2hex(random_bytes(20)), 0, 30, "");
-      $verificationLink = "https://" . getenv("HOST_NAME") . "/registration-success.php?code=$verificationCode";
+      $verificationLink = "https://" . urlencode(getenv("HOST_NAME")) . "/registration-success.php?code=" . urlencode($verificationCode);
 
       // Store verification code
       $stmt = $pdo->prepare("INSERT INTO PENDING_DT (sub_date, sub_time, validator, src) VALUES (?, ?, ?, ?)");
       $stmt->execute([$date, $time, $verificationCode, $_SESSION["id"]]);
 
       $subject = "Vérification de votre email";
-      $message = "Bonjour $surname,\n\nCliquez sur <a href=\"$verificationLink\">sur ce lien</a> pour vérifier votre nouveau mail.\nCordialement,\nL'équipe gestion des données.";
+      $message = "Bonjour " . html_san($surname) . ",\n\nCliquez sur <a href=\"$verificationLink\">sur ce lien</a> pour vérifier votre nouveau mail.\nCordialement,\nL'équipe gestion des données.";
       $plain = "Bonjour $surname,\nUtilisez le lien suivant pour vérifier votre nouveau mail : $verificationLink\n\nCordialement,\nL'équipe gestion des données.";
 
       if (!sendMail($email, $subject, $message, $plain)) {

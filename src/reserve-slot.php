@@ -7,7 +7,7 @@
   }
   if (!validate_tok("slot-res-token")) {
     if (isset($_POST["date"])) {
-        header("Location: calendar.php?alert=error-meth&date=" . $_POST["date"]);
+        header("Location: calendar.php?alert=error-meth&date=" . urlencode($_POST["date"]));
     } else {
         header("Location: calendar.php?alert=error-meth");
     }
@@ -19,7 +19,7 @@
   $message = san_string($_POST['message'], 200);
 
   if (!validate_string($date) || !validate_string($time)) {
-    header("Location: calendar.php?alert=error-meth&date=" . $date);
+    header("Location: calendar.php?alert=error-meth&date=" . urlencode($date));
     exit;
   }
 
@@ -46,5 +46,5 @@
     exit;
   }
 
-  header("Location: calendar.php?alert=success&date=" . $_POST["date"]);
+  header("Location: calendar.php?alert=success&date=" . urlencode($_POST["date"]));
 ?>

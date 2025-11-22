@@ -33,8 +33,6 @@
                 $pwh = $row["pwh"];
                 $sub = $row["sub"];
 
-                $hashed = password_hash($password, PASSWORD_BCRYPT);
-
                 if (password_verify($password, $pwh)) {
                     if ($sub != 0) {
                         $_SESSION["id"] = $id;

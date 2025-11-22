@@ -69,34 +69,34 @@
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="lastname">Nom</label>
                     <input class="form-control" type="text" id="lastname" name="lastname" maxlength="30" minlength="3" pattern="^[A-Za-zÀ-ÿ'\\-\\s]+$" required
-                    value="<?php echo $row["name"];?>">
+                    value="<?php echo html_san($row["name"]);?>">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="firstname">Prénom</label>
                     <input class="form-control" type="text" id="firstname" name="firstname" maxlength="30" minlength="3" pattern="^[A-Za-zÀ-ÿ'\\-\\s]+$" required
-                    value="<?php echo $row["surname"];?>">
+                    value="<?php echo html_san($row["surname"]);?>">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="birthdate">Date de naissance</label>
                     <input class="form-control" type="date" id="birthdate" name="birthdate" required
-                    value="<?php echo $row["birthdate"];?>">
+                    value="<?php echo html_san($row["birthdate"]);?>">
                   </div>
                 </div>
                 <div class="col-12 col-md-6">
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="address">Adresse postale</label>
                     <input class="form-control" type="text" id="address" name="address" maxlength="50" required
-                    value="<?php echo $row["address"];?>">
+                    value="<?php echo html_san($row["address"]);?>">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="phone">Téléphone</label>
                     <input class="form-control" type="tel" id="phone" minlength="10" maxlength="10" pattern="^[0-9]{10}$" name="phone" required
-                    value="<?php echo str_pad((string)$row["phone"], 10, "0", STR_PAD_LEFT); ?>">
+                    value="<?php echo html_san(str_pad((string)$row["phone"], 10, "0", STR_PAD_LEFT)); ?>">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="email">Mail</label>
                     <input class="form-control" type="email" id="email" name="email" maxlength="30" required
-                    value="<?php echo $row["email"];?>">
+                    value="<?php echo html_san($row["email"]); ?>">
                   </div>
                 </div>
               </div>
@@ -164,41 +164,36 @@
           <div class=\"toast-container position-fixed bottom-0 end-0 p-3\">
             <div id=\"toast-notifier\" class=\"toast\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\">
               <div class=\"toast-header\">";
-          if ($_GET["alert"] == "success-upd" || $_GET["alert"] == "success-rm" || $_GET["alert"] == "success-ch-pw" || $_GET["alert"] == "mail-send-error") {
+
+          $successful = ["success-upd", "success-rm", "success-ch-pw", "mail-send-error"];
+          if (in_array($_GET['alert'], $successful)) {
             echo "<i class=\"bi bi-check-circle-fill\" style=\"color: var(--bs-teal);\"></i>";
             echo "<strong class=\"me-auto\">Succès de l'opération</strong>";
           } else {
             echo "<i class=\"bi bi-exclamation-triangle-fill\" style=\"color: var(--bs-warning);\"></i>";
             echo "<strong class=\"me-auto\">Échec de l'opération</strong>";
           }
-          echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"toast\" aria-label=\"Close\"></button>
-              </div>
-              <div class=\"toast-body\">";
 
-          if ($_GET["alert"] == "success-upd") {
-            echo "La mise à jour des information a été effectuée.";
-          } else if ($_GET["alert"] == "success-upd-mail") {
-            echo "Action effectuée. N'oubliez pas de valider votre mail.";
-          } else if ($_GET["alert"] == "mail-send-error") {
-            echo "Echec de l'envoi du mail de vérification.";
-          } else if ($_GET["alert"] == "success-rm") {
-            echo "La suppression des information a été effectuée.";
-          } else if ($_GET["alert"] == "success-ch-pw") {
-            echo "Le changement de mot de passe a été efffectué.";
-          } else if ($_GET["alert"] == "pw-error-meth") {
-            echo "Échec de la requête.";
-          } else if ($_GET["alert"] == "pw-error") {
-            echo "Mauvais mot de passe.";
-          } else if ($_GET["alert"] == "rm-error-meth") {
-            echo "Échec de la requête.";
-          } else if ($_GET["alert"] == "upd-error-meth") {
-            echo "Échec de la requête.";
-          } else if ($_GET["alert"] == "phone-error") {
-            echo "Il y a une erreur avec votre numéro de téléphone.";
-          } else if ($_GET["alert"] == "mail-error") {
-            echo "Il semblerait que le mail ne soit pas bon, ou déjà utilisé.";
-          } else if ($_GET["alert"] == "success-upd") {
-            echo "Les données ont été mises à jour.";
+          echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"toast\" aria-label=\"Close\"></button>
+            </div>
+          <div class=\"toast-body\">";
+
+          $msgMap = [
+            "success-upd" => "La mise à jour des information a été effectuée.",
+            "success-upd-mail" => "Action effectuée. N'oubliez pas de valider votre mail.",
+            "mail-send-error" => "Échec de l'envoi du mail de vérification.",
+            "success-rm" => "La suppression des informations a été effectuée.",
+            "success-pw-ch" => "Le changement de mot de passe a été effectué.",
+            "pw-error-meth" => "Échec de la requête.",
+            "pw-error" => "Mauvais mot de passe.",
+            "rm-error-meth" => "Échec de la requête.",
+            "upd-error-meth" => "Échec de la requête.",
+            "phone-error" => "Il y a une erreur avec votre numéro de téléphone.",
+            "mail-error" => "Il semblerait que le mail ne soit pas bon, ou déjà utilisé."
+          ];
+
+          if (array_key_exists($_GET['alert'], $msgMap)) {
+            echo $msgMap[$_GET['alert']];
           } else {
             echo "Message vide.";
           }
