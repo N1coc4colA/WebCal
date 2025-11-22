@@ -34,15 +34,7 @@
         <div class="row">
           <div class="col-12 col-lg-8 mb-3">
             <div>
-              <div class="calendar-header-bar d-flex justify-content-between align-items-center mb-3">
-                <button id="prevMonth" class="btn btn-primary">
-                  <i class="bi bi-chevron-left"></i>
-                </button>
-                <h2 id="monthYear" class="text-center">February 2025</h2>
-                <button id="nextMonth" class="btn btn-primary">
-                  <i class="bi bi-chevron-right"></i>
-                </button>
-              </div>
+              <include href="templates/calendar-header.html"></include>
               <div class="d-flex justify-content-between calendar-header-ctr">
                 <!-- Days of the week -->
                 <div class="text-center split7 calendar-header">Dim</div>
@@ -311,8 +303,8 @@
     </main>
     <include href="templates/footer.html"></include>
     <script src="js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="js/calendar.js"></script>
-    <script src="js/toaster.js"></script>
+    <dependency src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" order="0"></dependency>
+    <dependency src="js/calendar.js"></dependency>
+    <dependency src="js/toaster.js"></dependency>
   </body>
 </html>

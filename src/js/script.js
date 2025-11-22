@@ -45,16 +45,52 @@ function resolve_include(element)
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    let tags = document.getElementsByTagName("include");
+function resolve_dependency(element)
+{
+    __js_load_counter++;
 
-    if (tags.length == 0) { // No need to run the later.
-        return post_load();
+    const scriptElem = document.createElement("script");
+
+    for (let attr of element.attributes) {
+        if (attr.name !== "order") {
+            scriptElem.setAttribute(attr.name, attr.value);
+        }
     }
 
+    scriptElem.textContent = element.textContent;
+    scriptElem.async = false;
+
+    // Replace old element with the new script element
+    element.parentNode.replaceChild(scriptElem, element);
+}
+
+function setup()
+{
+    let tags = document.getElementsByTagName("include");
     for (let i = 0; i < tags.length; ++i) {
         if (tags[i].hasAttribute("href")) {
             resolve_include(tags[i]);
         }
     }
-});
+
+    let deps = document.getElementsByTagName("dependency");
+
+    let ordering = [];
+    for (const dep of deps) {
+        if (dep.hasAttribute("order")) {
+            const order = parseInt(dep.getAttribute("order"));
+            ordering.push({element: dep, order: order});
+        } else {
+            ordering.push({element: dep, order: Number.MAX_SAFE_INTEGER});
+        }
+    }
+    ordering.sort((a, b) => a.order - b.order);
+
+    for (const dep of ordering) {
+        resolve_dependency(dep.element);
+    }
+
+    post_load();
+}
+
+document.addEventListener('DOMContentLoaded', setup);
