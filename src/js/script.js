@@ -1,5 +1,6 @@
 var __js_load_counter = 0;
 
+
 function post_load()
 {
     const bodies = document.getElementsByTagName("body");
@@ -25,30 +26,24 @@ function resolve_include(element)
 {
     __js_load_counter++;
 
-    // Load the content of the file referred to by the href attr.
-    fetch(element.getAttribute("href"))
+    return fetch(element.getAttribute("href"))
     .then(response => response.text())
     .then(data => {
         // Then just replace content.
         element.innerHTML = data;
         __js_load_counter--;
-        if (__js_load_counter == 0) {
-            post_load();
-        }
+        return element;
     })
     .catch(error => {
         console.error('Inclusion loading failed:', error);
         __js_load_counter--;
-        if (__js_load_counter == 0) {
-            post_load();
-        }
+
+        throw error;
     });
 }
 
 function resolve_dependency(element)
 {
-    __js_load_counter++;
-
     const scriptElem = document.createElement("script");
 
     for (let attr of element.attributes) {
@@ -67,9 +62,11 @@ function resolve_dependency(element)
 function setup()
 {
     let tags = document.getElementsByTagName("include");
-    for (let i = 0; i < tags.length; ++i) {
-        if (tags[i].hasAttribute("href")) {
-            resolve_include(tags[i]);
+    const includePromises = [];
+    for (const tag of tags) {
+        if (tag.hasAttribute("href")) {
+            // collect promises for all includes
+            includePromises.push(resolve_include(tag));
         }
     }
 
@@ -86,11 +83,21 @@ function setup()
     }
     ordering.sort((a, b) => a.order - b.order);
 
-    for (const dep of ordering) {
-        resolve_dependency(dep.element);
-    }
+    Promise.all(includePromises)
+    .then(() => {
+        for (const dep of ordering) {
+            resolve_dependency(dep.element);
+        }
+        post_load();
+    })
+    .catch(err => {
+        console.error('One or more includes failed to load:', err);
+        for (const dep of ordering) {
+            resolve_dependency(dep.element);
+        }
 
-    post_load();
+        post_load();
+    });
 }
 
 document.addEventListener('DOMContentLoaded', setup);
