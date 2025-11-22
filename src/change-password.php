@@ -24,7 +24,7 @@
       exit;
     }
 
-    $hashedPassword = password_hash($nPassword, PASSWORD_BCRYPT);
+    $hashedPassword = hash_password($nPassword);
 
     // Update information
     $stmt = $pdo->prepare("UPDATE USR_DT SET pwh=? WHERE (id=?)");

@@ -48,7 +48,7 @@
 
                                         if (!$emailExists) {
                                             // Generate PW hash
-                                            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+                                            $hashedPassword = hash_password($password);
 
                                             // Insertion dans la base de données
                                             $stmt = $pdo->prepare("INSERT INTO USR_DT (name, surname, birthdate, address, phone, email, pwh) VALUES (?, ?, ?, ?, ?, ?, ?)");

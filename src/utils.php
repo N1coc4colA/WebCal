@@ -1,6 +1,19 @@
 <?php
   include "db.php";
 
+  function get_password_options() {
+    return [
+      'memory_cost' => 1<<16, // 128 MB
+      'time_cost'   => 4,
+      'threads'     => 2,
+    ];
+  }
+
+  function hash_password(string $plain) {
+      $options = get_password_options();
+      return password_hash($plain, PASSWORD_ARGON2ID, $options);
+  }
+
   function generateToken() {
     return mb_strimwidth(trim(bin2hex(random_bytes(32))), 0, 32, "");
   }
