@@ -113,6 +113,9 @@
                 <input class="form-control" type="password" id="password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>
                 <i class="input-group-text bi bi-eye-slash" id="togglePassword"></i>
               </div>
+              <div class="form-text">
+                Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.
+              </div>
               <div class="input-group mb-3">
                 <label class="input-group-text" for="nPassword">Nouveau mot de passe</label>
                 <input class="form-control" type="password" id="nPassword" name="nPassword" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}" minlength="8" maxlength="30" required>

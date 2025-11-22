@@ -41,6 +41,9 @@
                         <label class="input-group-text" for="address">Adresse postale</label>
                         <input class="form-control" type="text" id="address" name="address" maxlength="50" required>
                     </div>
+                    <div class="form-text">
+                        Le numéro de téléphone doit contenir être de France Métropolitaine et contenir 10 chiffres.
+                    </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="phone">Téléphone</label>
                         <input class="form-control" type="tel" id="phone" minlength="10" maxlength="10" pattern="^[0-9]{10}$" name="phone" required>
@@ -48,6 +51,9 @@
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="email">Mail</label>
                         <input class="form-control" type="email" id="email" name="email" maxlength="30" required>
+                    </div>
+                    <div class="form-text">
+                        Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="password">Mot de passe</label>
