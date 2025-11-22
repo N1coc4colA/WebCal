@@ -24,9 +24,7 @@
   }
 
   try {
-    $pdo = connectDB();
-
-    $stmt = $pdo->prepare("SELECT id FROM USR_DT WHERE email=?");
+    $stmt = DB::getInstance()->prepare("SELECT id FROM USR_DT WHERE email=?");
     $stmt->execute([$email]);
     $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
     $rowCount = count($ids);
@@ -41,16 +39,20 @@
     }
 
     // Get previous mail
-    $stmt = $pdo->prepare("SELECT email FROM USR_DT WHERE (id=?)");
+    $stmt = DB::getInstance()->prepare("SELECT email FROM USR_DT WHERE (id=?)");
     $stmt->execute([$_SESSION["id"]]);
     $prevMail = $stmt->fetchColumn();
 
     // Update information
     // Do not forget to invalidate user verification.
-    $stmt = $pdo->prepare("UPDATE USR_DT SET name=?, surname=?, birthdate=?, address=?, phone=?, email=?, sub=? WHERE (id=?)");
-    $stmt->execute([$name, $surname, $birthdate, $address, $phone, $email, 0, $_SESSION["id"]]);
+    $requiresVerification = ($email === $prevMail) ? false : true;
 
-    if ($email != $prevMail) {
+    DBAtomic::run(function(PDO $pdo) use ($name, $surname, $birthdate, $address, $phone, $email, $prevMail, $requiresVerification) {
+      $stmt = $pdo->prepare("UPDATE USR_DT SET name=?, surname=?, birthdate=?, address=?, phone=?, email=?, sub=? WHERE (id=?)");
+      $stmt->execute([$name, $surname, $birthdate, $address, $phone, $email, $requiresVerification ? 1 : 0, $_SESSION["id"]]);
+    });
+
+    if ($requiresVerification) {
       // Generate entry first
       $date = date('Y-m-d');
       $time = date('H:i:s');
@@ -59,8 +61,10 @@
       $verificationLink = "https://" . urlencode(getenv("HOST_NAME")) . "/registration-success.php?code=" . urlencode($verificationCode);
 
       // Store verification code
-      $stmt = $pdo->prepare("INSERT INTO PENDING_DT (sub_date, sub_time, validator, src) VALUES (?, ?, ?, ?)");
-      $stmt->execute([$date, $time, $verificationCode, $_SESSION["id"]]);
+      DBAtomic::run(function(PDO $pdo) use ($date, $time, $verificationCode) {
+        $stmt = $pdo->prepare("INSERT INTO PENDING_DT (sub_date, sub_time, validator, src) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$date, $time, $verificationCode, $_SESSION["id"]]);
+      });
 
       $subject = "Vérification de votre email";
       $message = "Bonjour " . html_san($surname) . ",\n\nCliquez sur <a href=\"$verificationLink\">sur ce lien</a> pour vérifier votre nouveau mail.\nCordialement,\nL'équipe gestion des données.";

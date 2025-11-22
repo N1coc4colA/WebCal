@@ -7,14 +7,13 @@
   }
 
   try {
-    $pdo = connectDB();
-
     $password = san_pw($_POST['password']);
     $nPassword = san_pw($_POST['nPassword']);
-    // We don't care about confirmation password. Should be validated user-side only.
+    $id = $_SESSION["id"];
 
-    $stmt = $pdo->prepare("SELECT pwh FROM USR_DT WHERE id=?");
-    $stmt->execute([$_SESSION["id"]]);
+    // We don't care about confirmation password. Should be validated user-side only.
+    $stmt = DB::getInstance()->prepare("SELECT pwh FROM USR_DT WHERE id=?");
+    $stmt->execute([$id]);
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $pwh = $row["pwh"];
@@ -27,8 +26,10 @@
     $hashedPassword = hash_password($nPassword);
 
     // Update information
-    $stmt = $pdo->prepare("UPDATE USR_DT SET pwh=? WHERE (id=?)");
-    $stmt->execute([$hashedPassword, $_SESSION["id"]]);
+    DBAtomic::run(function($pdo) use ($hashedPassword, $id) {
+      $stmt = $pdo->prepare("UPDATE USR_DT SET pwh=? WHERE (id=?)");
+      $stmt->execute([$hashedPassword, $_SESSION["id"]]);
+    });
   } catch (PDOException $e) {
     header("Location: error.php?error=sql-error");
     exit;

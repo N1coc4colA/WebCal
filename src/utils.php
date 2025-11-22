@@ -24,10 +24,6 @@
     return $tok;
   }
 
-  function connectDB() {
-    return DB::getInstance();
-  }
-
   function san_pw($pw) {
     return (string) mb_strimwidth(((string)$pw), 0, 30, "");
   }

@@ -19,11 +19,11 @@
     }
 
     try {
-        $pdo = connectDB();
-
-        $eid = (int) $_GET["eid"];
-        $stmt = $pdo->prepare("DELETE FROM AR_DT WHERE (src=? AND id=?)");
-        $stmt->execute([$_SESSION["id"], $eid]);
+        DBAtomic::run(function(PDO $pdo) {
+            $eid = (int) $_GET["eid"];
+            $stmt = $pdo->prepare("DELETE FROM AR_DT WHERE (src=? AND id=?)");
+            $stmt->execute([$_SESSION["id"], $eid]);
+        });
 
         header("HTTP/2 200 OK");
     } catch (Exception $e) {

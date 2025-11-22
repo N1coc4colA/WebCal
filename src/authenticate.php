@@ -18,14 +18,12 @@
         }
 
         try {
-            $pdo = connectDB();
-
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM USR_DT WHERE email = ?");
+            $stmt = DB::getInstance()->prepare("SELECT COUNT(*) FROM USR_DT WHERE email = ?");
             $stmt->execute([$email]);
             $emailExists = $stmt->fetchColumn();
 
             if ($emailExists) {
-                $stmt = $pdo->prepare("SELECT id, pwh, sub FROM USR_DT WHERE email = ?");
+                $stmt = DB::getInstance()->prepare("SELECT id, pwh, sub FROM USR_DT WHERE email = ?");
                 $stmt->execute([$email]);
 
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);

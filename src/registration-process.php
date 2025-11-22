@@ -40,19 +40,13 @@
                                 if (validate_phone($phone)) {
                                     // Vérification de l'unicité de l'email
                                     try {
-                                        $pdo = connectDB();
-
-                                        $stmt = $pdo->prepare("SELECT COUNT(*) FROM USR_DT WHERE email = ?");
+                                        $stmt = DB::getInstance()->prepare("SELECT COUNT(*) FROM USR_DT WHERE email = ?");
                                         $stmt->execute([$email]);
                                         $emailExists = $stmt->fetchColumn();
 
                                         if (!$emailExists) {
                                             // Generate PW hash
                                             $hashedPassword = hash_password($password);
-
-                                            // Insertion dans la base de données
-                                            $stmt = $pdo->prepare("INSERT INTO USR_DT (name, surname, birthdate, address, phone, email, pwh) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                            $stmt->execute([$name, $surname, $birthdate, $address, $phone, $email, $hashedPassword]);
 
                                             // Send verification mail
                                             // Generate entry first
@@ -62,14 +56,22 @@
                                             $verificationCode = mb_strimwidth(bin2hex(random_bytes(20)), 0, 30, "");
                                             $verificationLink = "https://" . urlencode(getenv("HOST_NAME")) . "/registration-success.php?code=" . urlencode($verificationCode);
 
-                                            // Get the user's ID
-                                            $stmt = $pdo->prepare("SELECT id FROM USR_DT WHERE email = ?");
-                                            $stmt->execute([$email]);
-                                            $user_id = $stmt->fetchColumn();
+                                            $user_id = DBAtomic::run(function(PDO $pdo) use ($name, $surname, $birthdate, $address, $phone, $email, $hashedPassword, $date, $time, $verificationCode, $verificationLink) {
+                                                // Insertion dans la base de données
+                                                $stmt = $pdo->prepare("INSERT INTO USR_DT (name, surname, birthdate, address, phone, email, pwh) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                                $stmt->execute([$name, $surname, $birthdate, $address, $phone, $email, $hashedPassword]);
 
-                                            // Store verification code
-                                            $stmt = $pdo->prepare("INSERT INTO PENDING_DT (sub_date, sub_time, validator, src) VALUES (?, ?, ?, ?)");
-                                            $stmt->execute([$date, $time, $verificationCode, $user_id]);
+                                                // Get the user's ID
+                                                $stmt = $pdo->prepare("SELECT id FROM USR_DT WHERE email = ?");
+                                                $stmt->execute([$email]);
+                                                $user_id = $stmt->fetchColumn();
+
+                                                // Store verification code
+                                                $stmt = $pdo->prepare("INSERT INTO PENDING_DT (sub_date, sub_time, validator, src) VALUES (?, ?, ?, ?)");
+                                                $stmt->execute([$date, $time, $verificationCode, $user_id]);
+
+                                                return $user_id;
+                                            });
 
                                             $subject = "Vérification de votre email";
                                             $message = "Bonjour " . html_san($surname) . ",\n\nCliquez sur <a href=\"" . $verificationLink . "\">sur ce lien</a> pour vérifier votre email.\nCordialement,\nL'équipe d'inscription.";

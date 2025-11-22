@@ -24,26 +24,21 @@
   }
 
   try {
-    $pdo = connectDB();
+      $nextTime = new DateTime($time);
 
-    try {
-        $nextTime = new DateTime($time);
+      // Add an hour
+      $nextTime->modify('+1 hour');
 
-        // Add an hour
-        $nextTime->modify('+1 hour');
+      // Format the time back to a string if needed
+      $nextTimeString = $nextTime->format('H:i:s');
 
-        // Format the time back to a string if needed
-        $nextTimeString = $nextTime->format('H:i:s');
-
+      DBAtomic::run(function($pdo) use ($nextTimeString, $date, $time, $message) {
         $stmt = $pdo->prepare("INSERT INTO AR_DT(src, beg_date, beg_time, end_date, end_time, msg) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$_SESSION["id"], $date, $time, $date, $nextTimeString, $message]);
-    } catch (Exception $e) {
-        header("Location: calendar.php?alert=error-meth");
-        exit;
-    }
-  } catch (PDOException $e) {
-    header("Location: calendar.php?alert=error-meth");
-    exit;
+      });
+  } catch (Exception $e) {
+      header("Location: calendar.php?alert=error-meth");
+      exit;
   }
 
   header("Location: calendar.php?alert=success&date=" . urlencode($_POST["date"]));

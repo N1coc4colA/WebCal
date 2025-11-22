@@ -2,9 +2,7 @@
   include "session_utils.php";
 
   try {
-    $pdo = connectDB();
-
-    $stmt = $pdo->prepare("SELECT name, surname, birthdate, address, phone, email FROM USR_DT WHERE (id=?)");
+    $stmt = DB::getInstance()->prepare("SELECT name, surname, birthdate, address, phone, email FROM USR_DT WHERE (id=?)");
     $stmt->execute([$_SESSION["id"]]);
   
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
