@@ -31,4 +31,3 @@ services:
       - MYSQL_DATABASE=webcal
       - MYSQL_ROOT_PASSWORD=root-password
       - MARIADB_AUTO_UPGRADE=1
-

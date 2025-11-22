@@ -14,18 +14,18 @@ echo "SQL user: $DB_USER"
 echo "SQL host: $DB_HOST"
 
 #CREATE DATABASE IF NOT EXISTS $DATABASE; 
-until mariadb -h$DB_HOST -u$DB_USER -p$DB_ROOT_PASSWORD -e "USE $DB_NAME"; do
+until mariadb --skip-ssl -h"$DB_HOST" -u"$DB_USER" -p"$DB_ROOT_PASSWORD" -e "USE $DB_NAME"; do
   echo "Database is not up yet. Waiting..."
   sleep 5 # wait for 5 seconds before check again
 done
 
 # Create DB first & authorize
 echo "Creating DB..."
-mariadb -h$DB_HOST -u$DB_USER -p$DB_ROOT_PASSWORD <<< "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+mariadb --skip-ssl -h"$DB_HOST" -u"$DB_USER" -p"$DB_ROOT_PASSWORD" <<< "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
 
 # Execute the SQL script using mysql
 echo "Building DB..."
-mariadb -h$DB_HOST -u$DB_USER -p$DB_ROOT_PASSWORD $DB_NAME < $SQL_FILE
+mariadb --skip-ssl -h"$DB_HOST" -u"$DB_USER" -p"$DB_ROOT_PASSWORD" "$DB_NAME" < "$SQL_FILE"
 
 # Grant privileges
 echo "Granting privileges..."
