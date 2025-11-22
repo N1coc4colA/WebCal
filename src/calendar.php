@@ -298,7 +298,7 @@
           } else if ($_GET["alert"] == "error") {
             echo "Erreur interne, échec de l'opération.";
           } else {
-            print_r($_GET); 
+            print_r($_GET);
             echo "Message vide.";
           }
 
