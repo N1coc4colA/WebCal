@@ -30,6 +30,9 @@
             'afternoon' => ['start' => '13:00:00', 'end' => '16:00:00']
         ];
 
+        $now = new DateTime();
+        $now->modify("+1 hour");
+
         // Loop through the days between begDate and endDate
         $currentDate = $begDate;
         $endingTime = strtotime($endDate);
@@ -67,7 +70,7 @@
                     }
 
                     // If the slot is not booked, add it to the available slots
-                    if (!$isBooked) {
+                    if (!$isBooked && $now < DateTime::createFromFormat('U', $start)) {
                         $availableSlots[] = [
                             'beg_date' => $slotStartDate,
                             'beg_time' => $slotStartTime,

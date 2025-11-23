@@ -377,6 +377,10 @@ function setupMonth(date)
 
 function popupReservationModal()
 {
+    if (activeDate < new Date()) {
+        return;
+    }
+
     // Now make popup for the date.
     slotReservationModal.show();
 

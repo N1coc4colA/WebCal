@@ -23,12 +23,16 @@
     exit;
   }
 
+  $now = new DateTime();
+  $nextTime = new DateTime("$date $time");
+  $nextTime->modify('+1 hour');
+
+  if ($nextTime < $now) {
+      header("Location: calendar.php?alert=error-meth&date=" . urlencode($date));
+      exit;
+  }
+
   try {
-      $nextTime = new DateTime($time);
-
-      // Add an hour
-      $nextTime->modify('+1 hour');
-
       // Format the time back to a string if needed
       $nextTimeString = $nextTime->format('H:i:s');
 
