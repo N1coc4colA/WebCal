@@ -63,7 +63,7 @@ function setupUpcomingEvents(date)
 
         let htmlResult = "";
         for (const elem of data) {
-            htmlResult += buildEventCard(new Date(Date.parse(elem["beg_date"])), elem["beg_time"], elem["end_time"], truncate(elem["msg"], 50), elem["id"], true);
+            htmlResult += buildEventCard(new Date(Date.parse(elem["beg_date"])), elem["beg_time"], elem["end_time"], truncate(elem["msg"], 50), elem["id"]);
         }
 
         document.getElementById("upcoming-body").innerHTML = htmlResult;
@@ -82,7 +82,7 @@ function setupUpcomingEvents(date)
     });
 }
 
-function buildEventCard(date, beg, end, message, eventId, isUpcoming = false)
+function buildEventCard(date, beg, end, message, eventId)
 {
     const monthName = monthNames[date.getMonth()];
     const day = date.getDate().toString();
@@ -111,13 +111,6 @@ function buildEventCard(date, beg, end, message, eventId, isUpcoming = false)
     code +=         message;
     code += "       </p> \
                 </div>";
-    if (isUpcoming) {
-        code += "   <i class=\"bi bi-trash3-fill uc-event-rm-btn\" event-id=\"";
-    } else {
-        code += "   <i class=\"bi bi-trash3-fill event-rm-btn\" event-id=\"";
-    }
-    code +=     eventId;
-    code +=     "\"></i>";
     code += "</div> \
          </div>";
 
@@ -178,3 +171,7 @@ setupCalendar();
 
 const urlParams = new URLSearchParams(window.location.search);
 setupUpcomingEvents(urlParams.has("date") ? new Date(urlParams.get("date")) : new Date());
+
+setTimeout(() => {
+    downloadUpcomingEvents();
+}, 1500);

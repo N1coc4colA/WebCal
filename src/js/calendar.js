@@ -152,6 +152,7 @@ function handleEventRemoval(elem)
 
     // Reload items in upcoming events if dates correspond.
     setupUpcomingEvents();
+    setupMonth(activeDate);
 }
 
 function buildEventCard(date, beg, end, message, eventId, isUpcoming = false)
@@ -481,3 +482,9 @@ if (urlParams.has("date")) {
 } else {
     setupMonth(new Date());
 }
+
+
+setTimeout(() => {
+    setupMonth(activeDate);
+    setupUpcomingEvents();
+}, 1500);
