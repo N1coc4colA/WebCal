@@ -107,8 +107,10 @@ function setupUpcomingEvents()
 
         if (data.length == 0) {
             document.getElementById("upcoming-body-noEvent").classList.remove("hidden-full");
+            document.getElementById("upcoming-body").classList.add("hidden-full");
         } else {
             document.getElementById("upcoming-body").classList.remove("hidden-full");
+            document.getElementById("upcoming-body-noEvent").classList.add("hidden-full");
         }
     })
     .catch(error => {
@@ -408,11 +410,9 @@ function popupReservationModal()
         document.getElementById("mod-timeSelect").innerHTML = htmlResult;
 
         if (data.length == 0) {
-            document.getElementById("upcoming-body-noEvent").classList.remove("hidden-full");
-            document.getElementById("upcoming-body").classList.add("hidden-full");
+            document.getElementById("mod-nothingAvailable").classList.remove("hidden-full");
         } else {
-            document.getElementById("upcoming-body").classList.remove("hidden-full");
-            document.getElementById("upcoming-body-noEvent").classList.add("hidden-full");
+            document.getElementById("mod-resResponseOk").classList.remove("hidden-full");
         }
     })
     .catch(error => {
