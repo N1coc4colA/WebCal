@@ -199,7 +199,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-lg-4">
+          <div class="col-12 col-lg-4 mb-2">
             <h2 class="upcoming-header">Événements à venir:</h2>
             <div id="upcoming-body" class="upcoming-body hidden-full"></div>
             <p id="upcoming-body-noEvent" class="hidden-full">Rien de disponible :/</p>

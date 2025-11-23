@@ -400,7 +400,6 @@ function popupReservationModal()
     })
     .then(data => {
         let htmlResult = "";
-        let days = [];
         for (let i = 0; i < data.length; ++i) {
             const curr = data[i]["beg_time"];
             htmlResult += "<option value=\"" + curr + "\">" + curr + " - " + data[i]["end_time"] + "</option>";
@@ -409,9 +408,11 @@ function popupReservationModal()
         document.getElementById("mod-timeSelect").innerHTML = htmlResult;
 
         if (data.length == 0) {
-            document.getElementById("mod-nothingAvailable").classList.remove("hidden-full");
+            document.getElementById("upcoming-body-noEvent").classList.remove("hidden-full");
+            document.getElementById("upcoming-body").classList.add("hidden-full");
         } else {
-            document.getElementById("mod-resResponseOk").classList.remove("hidden-full");
+            document.getElementById("upcoming-body").classList.remove("hidden-full");
+            document.getElementById("upcoming-body-noEvent").classList.add("hidden-full");
         }
     })
     .catch(error => {
